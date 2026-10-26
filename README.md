@@ -100,7 +100,7 @@ To re-score the 20 test pages yourself: `python lab_precompute.py` from `app/`.
 
 ## Model weights
 
-`ffdn_v2_best.pth` (about 357 MB) is attached to the [Releases](../../releases) page. The app downloads it by itself the first time you check a page in the Tamper lab; nothing else in the app needs it.
+`ffdn_v2_best.1.pth` (about 357 MB) is attached to the [Bestpath release](../../releases/tag/Bestpath). The app downloads it by itself the first time you check a page in the Tamper lab; nothing else in the app needs it.
 The weights are fine-tuned from ForensicHub's FFDN document checkpoint, which was trained on DocTamper, so they are released **for research and evaluation only**. See [NOTICE.md](NOTICE.md).
 
 ## Reproduce

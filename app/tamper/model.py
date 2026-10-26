@@ -1,6 +1,6 @@
 # ======================= PATHS AND SETTINGS (edit if needed) =======================
 RELEASES_API = "https://api.github.com/repos/Dynemies/scrutiny-desk/releases/latest"   # the model is the .pth file in the latest release
-WEIGHTS_URL = "https://github.com/Dynemies/scrutiny-desk/releases/download/v2-model/ffdn_v2_best.pth"   # used if the lookup fails
+WEIGHTS_URL = "https://github.com/Dynemies/scrutiny-desk/releases/download/Bestpath/ffdn_v2_best.1.pth"   # used if the lookup fails
 WEIGHTS_PATH = "models/ffdn_v2_best.pth"   # relative to the app folder; downloaded on first use
 CUTOFF_PX = 143        # page is flagged when the largest marked area is at least this big (chosen on 1,555 validation pages)
 BLOB_PROB = 0.3        # a pixel counts as marked at this probability
