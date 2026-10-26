@@ -66,6 +66,8 @@ On 150 generated applications, every planted problem of the rule-based types (ev
 
 ## Run it
 
+**Full step-by-step guide, with Windows and macOS / Linux commands and fixes for common problems: [RUN.md](RUN.md).**
+
 ```
 git clone https://github.com/Dynemies/scrutiny-desk.git
 cd scrutiny-desk/app
@@ -75,9 +77,9 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-Python 3.10 to 3.12. The install downloads about 1 GB (mostly PyTorch) the first time.
+Python 3.10 to 3.13. The install downloads about 1 GB (mostly PyTorch) the first time.
 
-Opens at http://localhost:8501 with 14 sample applications. Results and tamper heatmaps are precomputed, so the demo runs on any laptop, without a GPU or the model file.
+Opens at http://localhost:8501 with 14 sample applications. Their results and tamper heatmaps are precomputed, so this part runs on any laptop without a GPU or the model file.
 
 To try the documents yourself, see [`samples/`](samples): one genuine application and nine documents with a different problem each.
 
@@ -87,7 +89,7 @@ The **Tamper lab** tab runs the tamper model on single pages and shows what it s
 
 It opens with 20 test pages generated after training ([`samples/test_pages/`](samples/test_pages), 10 edited and 10 genuine, with answer key and true masks). Their results are precomputed, so they show instantly: the model catches all 10 edits (mean overlap with the true edit 0.97) and raises one false alarm, on part of the deponent's name in a genuine affidavit.
 
-Upload your own pages (JPEG, PNG or PDF) to check them live. The first check downloads the model from the [Releases](../../releases) page (357 MB, once); after that a page takes about a minute on a 2-core CPU and about 2 seconds on a GPU. Checked pages are kept in `app/lab_store/` and stay listed under *My pages*.
+Upload your own pages (JPEG, PNG or PDF) to check them live. The first check downloads the model from the [Bestpath release](../../releases/tag/Bestpath) (357 MB, once); after that a page takes about a minute on a 2-core CPU and about 2 seconds on a GPU. Checked pages are kept in `app/lab_store/` and stay listed under *My pages*.
 
 To re-score the 20 test pages yourself: `python lab_precompute.py` from `app/`.
 
