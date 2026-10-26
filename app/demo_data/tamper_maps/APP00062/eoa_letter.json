@@ -1,0 +1,1 @@
+{"score": 5194, "threshold": 143, "unit": "px", "rule": "largest area marked at probability >= 0.3", "peak": 1.0, "model": "FFDN fine-tuned on synthetic AICTE documents (v2, epoch 3)"}

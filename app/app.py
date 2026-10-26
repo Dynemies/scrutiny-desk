@@ -192,6 +192,11 @@ def marked_page(app_id, doc, info):
         dr = ImageDraw.Draw(over)
     for f in info["findings"]:
         col = INK[STAMP_CLASS[f["status"]]]
+        if f.get("check") == "Tampering" and f.get("heatmap"):
+            b = heat_box(f["heatmap"], img.size)
+            if b:
+                dr.rectangle(b, outline=col + (255,), width=4)
+                boxes.append((b, f))
         if f.get("field") and f["field"] in info.get("boxes", {}):
             b = quad_box(info["boxes"][f["field"]])
             dr.rectangle(b, outline=col + (255,), width=4, fill=col + (38,))
@@ -202,6 +207,21 @@ def marked_page(app_id, doc, info):
             dr.rectangle(b, outline=col + (255,), width=4, fill=col + (38,))
             boxes.append((b, f))
     return Image.alpha_composite(img.convert("RGBA"), over).convert("RGB"), boxes
+
+
+def heat_box(heatmap_path, size, prob=0.3):
+    """Box around the largest area the tamper model marks (same rule as the verdict), padded a little."""
+    import cv2
+    hm = cv2.imread(str(heatmap_path), cv2.IMREAD_GRAYSCALE)
+    if hm is None:
+        return None
+    hm = cv2.resize(hm, size, interpolation=cv2.INTER_NEAREST)
+    n, _, stats, _ = cv2.connectedComponentsWithStats((hm >= prob * 255).astype("uint8"), connectivity=8)
+    if n < 2:
+        return None
+    j = 1 + int(stats[1:, cv2.CC_STAT_AREA].argmax())
+    x, y, w, h = (int(v) for v in stats[j, :4])
+    return [x - 8, y - 8, x + w + 8, y + h + 8]
 
 
 def crop(img, b, wpad=140, hpad=60):

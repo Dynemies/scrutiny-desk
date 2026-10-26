@@ -7,7 +7,7 @@ Smart India Hackathon 2026 · Problem statement **SIH26261** (AICTE): *AI-powere
 > Everything in this repository is synthetic: institutions, people, numbers, documents and records are generated.
 > No real AICTE, NBA or government document, logo or seal is used.
 
-![Application view](docs/screenshots/1_application_signed_edit.png)
+![A fee receipt whose AICTE ID was repainted: caught by both the records check and the tamper model](docs/screenshots/0_tamper_heatmap.png)
 
 ## What it does
 
@@ -54,6 +54,10 @@ A page is flagged when the largest area the model marks is at least 143 pixels; 
 
 \* Scored with its default rule (99.9th-percentile pixel ≥ 0.5). Out of the box it flags almost every page, genuine or not.
 
+![Tamper model output on the two edited demo pages](docs/figures/tamper_examples.png)
+
+On the app's 14 demo applications (83 pages), the model flags both edited pages, marking the changed AICTE ID almost exactly (overlap 0.997 and 0.988), and the re-used copy of one of them in a third application. It also flags one genuine page: the last digit of a fire NOC number, marked as if it had been added. That is 1 of 80 genuine pages, in line with the 1.1% above.
+
 v2 continues from v1 with two changes: *hard negatives* (training on the exact spots where v1 wrongly fired on genuine pages, plus genuine text) and choosing the epoch with the same rule the app uses. Page-level AUC: 0.980 (v1: 0.962). Per-page scores for every model are in [`results/`](results).
 
 ### Rule checks
@@ -69,7 +73,7 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-Opens at http://localhost:8501 with 14 sample applications. Results are precomputed, so the demo runs on any laptop, without a GPU or the model file.
+Opens at http://localhost:8501 with 14 sample applications. Results and tamper heatmaps are precomputed, so the demo runs on any laptop, without a GPU or the model file.
 
 To try the documents yourself, see [`samples/`](samples): one genuine application and nine documents with a different problem each.
 
