@@ -77,9 +77,30 @@ Opens at http://localhost:8501 with 14 sample applications. Results and tamper h
 
 To try the documents yourself, see [`samples/`](samples): one genuine application and nine documents with a different problem each.
 
+### Tamper lab
+
+The **Tamper lab** tab runs the tamper model on single pages and shows what it sees: the verdict stamp, the heatmap on the page, the mask, the true edit (for the test pages), a comparison of the two, and an enlarged close-up of the marked area.
+
+It opens with 20 test pages generated after training ([`samples/test_pages/`](samples/test_pages), 10 edited and 10 genuine, with answer key and true masks). Their results are precomputed, so they show instantly: the model catches all 10 edits (mean overlap with the true edit 0.97) and raises one false alarm, on part of the deponent's name in a genuine affidavit.
+
+Upload your own pages (JPEG, PNG or PDF) to check them live. The first check downloads the model from the [Releases](../../releases) page (357 MB, once); after that a page takes about a minute on a 2-core CPU and about 2 seconds on a GPU. Checked pages are kept in `app/lab_store/` and stay listed under *My pages*.
+
+To re-score the 20 test pages yourself: `python lab_precompute.py` from `app/`.
+
+![Tamper lab: 20 test pages with verdicts](docs/screenshots/5_tamper_lab.png)
+![One page in detail: a single inserted digit in the AICTE ID, boxed, with the verdict and the facts](docs/screenshots/6_tamper_lab_detail.png)
+
+## Put it online (Streamlit Community Cloud, free)
+
+1. Sign in at [share.streamlit.io](https://share.streamlit.io) with GitHub.
+2. **Create app → Deploy a public app from GitHub**: repository `Dynemies/scrutiny-desk`, branch `main`, main file path `app/app.py`.
+3. Under **Advanced settings**, choose Python 3.12. Deploy.
+
+`app/requirements.txt` installs CPU-only PyTorch, and `packages.txt` adds the C compiler that `jpegio` needs to build. The first build takes several minutes. The 14 applications and the 20 test pages work straight away; live checks in the Tamper lab download the model on first use. Free apps get about 2.7 GB of memory, enough for the model on one page at a time.
+
 ## Model weights
 
-`ffdn_v2_best.pth` (about 357 MB) is attached to the [Releases](../../releases) page. It is only needed to re-run the tamper model, not to use the app.
+`ffdn_v2_best.pth` (about 357 MB) is attached to the [Releases](../../releases) page. The app downloads it by itself the first time you check a page in the Tamper lab; nothing else in the app needs it.
 The weights are fine-tuned from ForensicHub's FFDN document checkpoint, which was trained on DocTamper, so they are released **for research and evaluation only**. See [NOTICE.md](NOTICE.md).
 
 ## Reproduce
@@ -108,7 +129,7 @@ Each training epoch runs in its own fresh process, so host memory cannot build u
 ## Repository
 
 ```
-app/          Streamlit desk, check engine, 14 demo applications with precomputed results
+app/          Streamlit desk, check engine, Tamper lab, 14 demo applications and 20 test pages with precomputed results
 generator/    Synthetic application generator (documents, signatures, planted problems, answer keys)
 training/     Fine-tuning and scoring scripts, one-cell Kaggle versions, analysis
 results/      Per-page scores and training history for every model

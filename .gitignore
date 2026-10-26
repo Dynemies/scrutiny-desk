@@ -5,3 +5,5 @@ __pycache__/
 .DS_Store
 .ipynb_checkpoints/
 app/demo_data/page_hashes.json.lock
+app/lab_store/
+app/models/*.part

@@ -14,6 +14,10 @@ import streamlit as st
 from PIL import Image, ImageDraw
 
 import engine
+import lab
+
+HERE = Path(__file__).resolve().parent
+DATA_DIR = str(HERE / DATA_DIR) if not Path(DATA_DIR).is_absolute() else DATA_DIR   # works from any start folder
 
 st.set_page_config(page_title="Scrutiny desk", page_icon="📋", layout="wide", initial_sidebar_state="expanded")
 
@@ -167,7 +171,7 @@ with st.sidebar:
     st.caption(f"{len(pool)} of {len(app_ids)} applications")
 
 
-tab_app, tab_queue, tab_file = st.tabs(["Application", "Queue overview", "Check a file"])
+tab_app, tab_queue, tab_lab, tab_file = st.tabs(["Application", "Queue overview", "Tamper lab", "Check a file"])
 
 # ------------------------------------------------------------------ helpers for evidence images
 def load_page(app_id, doc):
@@ -425,4 +429,8 @@ with tab_file:
                 c, d2 = st.columns(2)
                 c.image(crop(s_img, reg, 260, 18), caption="As signed", width="stretch")
                 d2.image(crop(n_img, reg, 260, 18), caption="As uploaded, after the change", width="stretch")
-        st.caption("Field reading and the tamper heatmap switch on here once the trained models are connected.")
+        st.caption("To look for edits inside the scanned page itself, use the Tamper lab tab.")
+
+# ------------------------------------------------------------------ tab: tamper lab
+with tab_lab:
+    lab.render()

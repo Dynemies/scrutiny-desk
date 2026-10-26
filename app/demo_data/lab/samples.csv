@@ -1,0 +1,21 @@
+id,name,truth,edit,field,doc_type,true_mask
+tampered_01,Tampered 01,tampered,replacement,registration_no,lease_deed,truth/tampered_01_mask.png
+tampered_02,Tampered 02,tampered,replacement,sworn_date,affidavit,truth/tampered_02_mask.png
+tampered_03,Tampered 03,tampered,insertion,transaction_id,ter_receipt,truth/tampered_03_mask.png
+tampered_04,Tampered 04,tampered,insertion,aicte_id,eoa_letter,truth/tampered_04_mask.png
+tampered_05,Tampered 05,tampered,removal,valid_until,nba_certificate,truth/tampered_05_mask.png
+tampered_06,Tampered 06,tampered,removal,valid_until,nba_certificate,truth/tampered_06_mask.png
+tampered_07,Tampered 07,tampered,copy_move,valid_until,fire_noc,truth/tampered_07_mask.png
+tampered_08,Tampered 08,tampered,copy_move,issue_date,fire_noc,truth/tampered_08_mask.png
+tampered_09,Tampered 09,tampered,splicing,aicte_id,eoa_letter,truth/tampered_09_mask.png
+tampered_10,Tampered 10,tampered,splicing,letter_date,eoa_letter,truth/tampered_10_mask.png
+genuine_01,Genuine 01,genuine,,,fire_noc,
+genuine_02,Genuine 02,genuine,,,affidavit,
+genuine_03,Genuine 03,genuine,,,affidavit,
+genuine_04,Genuine 04,genuine,,,nba_certificate,
+genuine_05,Genuine 05,genuine,,,ter_receipt,
+genuine_06,Genuine 06,genuine,,,eoa_letter,
+genuine_07,Genuine 07,genuine,,,nba_certificate,
+genuine_08,Genuine 08,genuine,,,eoa_letter,
+genuine_09,Genuine 09,genuine,,,ter_receipt,
+genuine_10,Genuine 10,genuine,,,fire_noc,

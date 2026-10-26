@@ -2,7 +2,7 @@
 
 | What | Where it is used | Licence / terms |
 | --- | --- | --- |
-| **FFDN** model code, from [ForensicHub](https://github.com/scu-zjz/ForensicHub) (Sichuan University) | Fetched at run time by the training and heatmap cells; not copied into this repository | CC BY 4.0 |
+| **FFDN** model code, from [ForensicHub](https://github.com/scu-zjz/ForensicHub) (Sichuan University) | Fetched at run time by the training and heatmap cells. Four model files are copied into `app/tamper/ffdn/` so the app can run the model; changes: registry imports removed, `timm` import made version-tolerant, starting-weight loading made optional | CC BY 4.0 (licence copy in that folder) |
 | FFDN method: Chen et al., *Enhancing Tampered Text Detection through Frequency Feature Fusion and Decomposition*, ECCV 2024 | Tamper model architecture | Paper (cite when using) |
 | ForensicHub FFDN document checkpoint (trained on DocTamper) | Starting weights for our fine-tune | Research use. Our fine-tuned weights are derived from it, so they are released **for research and evaluation only** |
 | DocTamper: Qu et al., *Towards Robust Tampered Text Detection in Document Image*, CVPR 2023 | Data behind the starting checkpoint (not used or redistributed here) | Research use under the dataset's own agreement |

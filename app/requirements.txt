@@ -1,3 +1,4 @@
+# The desk itself
 streamlit>=1.40
 pymupdf>=1.24
 pyhanko>=0.25
@@ -5,3 +6,11 @@ opencv-python-headless>=4.8
 numpy>=1.26
 pillow>=10.0
 tqdm>=4.66
+
+# The tamper model (Tamper lab tab). CPU builds of torch keep the install small.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch>=2.2
+torchvision>=0.17
+timm>=0.9
+efficientnet_pytorch>=0.7.1
+jpegio>=0.2.8        # builds from source: needs a C compiler (see packages.txt) and numpy

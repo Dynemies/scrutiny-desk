@@ -23,3 +23,8 @@ and the scanned page inside it as a JPEG. For pixel edits, `*_edit_mask.png` mar
 Open a PDF in Adobe Reader to see the signature panel: genuine files show a valid (test) signature,
 `03_changed_after_signing` shows that the document was modified after signing.
 The test certificate's trust root is `app/demo_data/pki/test_ca.pem`; no private keys are included anywhere in this repository.
+
+## `test_pages/`: for the Tamper lab
+
+20 single pages made after training, from 40 new applications the model never saw: 10 with one edit each (two of every kind: replacement, insertion, removal, copy-move, splicing) and 10 untouched.
+`answer_key.csv` says what was changed on each page, and `tampered/true_masks/` holds the exact edited pixels. They are preloaded in the app's **Tamper lab** tab; you can also upload any of them there to check them live.
