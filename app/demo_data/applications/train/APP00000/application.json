@@ -1,0 +1,22 @@
+{
+  "application_id": "APP00000",
+  "institution_id": "1-5026590100",
+  "institution_name": "Sanjeevani Dani Institute of Technology, Cuttack",
+  "address": "243, Thakkar Path, Cuttack, Odisha - 568795",
+  "region": "Eastern",
+  "application_date": "2026-03-29",
+  "category": "Extension of Approval",
+  "requested_intake": {
+    "MBA": 60,
+    "B.Tech Electrical and Electronics Engineering": 30,
+    "B.Tech Artificial Intelligence and Data Science": 120
+  },
+  "uploaded_documents": [
+    "affidavit",
+    "lease_deed",
+    "fire_noc",
+    "nba_certificate",
+    "eoa_letter",
+    "ter_receipt"
+  ]
+}

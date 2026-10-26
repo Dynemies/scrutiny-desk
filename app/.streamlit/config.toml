@@ -1,0 +1,16 @@
+[server]
+enableStaticServing = true
+headless = true
+
+[client]
+toolbarMode = "viewer"
+
+[browser]
+gatherUsageStats = false
+
+[theme]
+base = "light"
+primaryColor = "#172A46"
+backgroundColor = "#FAFBF9"
+secondaryBackgroundColor = "#E4EAE2"
+textColor = "#172A46"

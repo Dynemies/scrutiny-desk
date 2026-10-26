@@ -1,0 +1,22 @@
+{
+  "application_id": "APP00035",
+  "institution_id": "1-9327030569",
+  "institution_name": "Kalpana Srinivas Institute of Engineering and Technology, Sambalpur",
+  "address": "362, Lalla Marg, Sambalpur, Odisha - 749771",
+  "region": "Eastern",
+  "application_date": "2026-03-24",
+  "category": "Extension of Approval",
+  "requested_intake": {
+    "Diploma in Mechanical Engineering": 60,
+    "MCA": 120,
+    "B.Tech Mechanical Engineering": 120
+  },
+  "uploaded_documents": [
+    "affidavit",
+    "lease_deed",
+    "fire_noc",
+    "nba_certificate",
+    "eoa_letter",
+    "ter_receipt"
+  ]
+}

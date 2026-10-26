@@ -1,0 +1,22 @@
+{
+  "application_id": "APP00018",
+  "institution_id": "1-9232675398",
+  "institution_name": "Shri Rastogi College of Engineering and Technology, Kanpur",
+  "address": "88, Hayre Nagar, Kanpur, Uttar Pradesh - 770386",
+  "region": "Northern",
+  "application_date": "2026-01-21",
+  "category": "Extension of Approval",
+  "requested_intake": {
+    "B.Tech Computer Science and Engineering": 240,
+    "B.Tech Electronics and Communication Engineering": 120,
+    "M.Tech VLSI Design": 24
+  },
+  "uploaded_documents": [
+    "affidavit",
+    "lease_deed",
+    "fire_noc",
+    "nba_certificate",
+    "eoa_letter",
+    "ter_receipt"
+  ]
+}

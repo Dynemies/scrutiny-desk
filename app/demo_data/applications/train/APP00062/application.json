@@ -1,0 +1,23 @@
+{
+  "application_id": "APP00062",
+  "institution_id": "1-2729528555",
+  "institution_name": "Prerana Issac College of Engineering, Kozhikode",
+  "address": "20, Mahal Path, Kozhikode, Kerala - 583819",
+  "region": "South-West",
+  "application_date": "2026-02-23",
+  "category": "Extension of Approval",
+  "requested_intake": {
+    "MBA": 180,
+    "B.Tech Mechanical Engineering": 30,
+    "Diploma in Mechanical Engineering": 120,
+    "B.Tech Electronics and Communication Engineering": 180
+  },
+  "uploaded_documents": [
+    "affidavit",
+    "lease_deed",
+    "fire_noc",
+    "nba_certificate",
+    "eoa_letter",
+    "ter_receipt"
+  ]
+}

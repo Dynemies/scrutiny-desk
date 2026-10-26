@@ -1,0 +1,23 @@
+{
+  "application_id": "APP00063",
+  "institution_id": "1-7681007877",
+  "institution_name": "Sant Upadhyay Institute of Technology, Ahmedabad",
+  "address": "440, Nair Circle, Ahmedabad, Gujarat - 754623",
+  "region": "Western",
+  "application_date": "2026-01-22",
+  "category": "Extension of Approval",
+  "requested_intake": {
+    "B.Tech Electrical and Electronics Engineering": 120,
+    "B.Tech Computer Science and Engineering": 60,
+    "B.Tech Mechanical Engineering": 120,
+    "MCA": 120
+  },
+  "uploaded_documents": [
+    "affidavit",
+    "lease_deed",
+    "fire_noc",
+    "nba_certificate",
+    "eoa_letter",
+    "ter_receipt"
+  ]
+}

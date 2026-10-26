@@ -1,0 +1,22 @@
+{
+  "application_id": "APP00002",
+  "institution_id": "1-8978651095",
+  "institution_name": "Gyan Murthy College of Engineering and Technology, Kozhikode",
+  "address": "129, Ranganathan Ganj, Kozhikode, Kerala - 779996",
+  "region": "South-West",
+  "application_date": "2026-03-07",
+  "category": "Extension of Approval",
+  "requested_intake": {
+    "B.Tech Mechanical Engineering": 30,
+    "MCA": 120,
+    "B.Tech Civil Engineering": 120
+  },
+  "uploaded_documents": [
+    "affidavit",
+    "lease_deed",
+    "fire_noc",
+    "nba_certificate",
+    "eoa_letter",
+    "ter_receipt"
+  ]
+}

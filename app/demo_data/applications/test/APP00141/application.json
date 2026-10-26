@@ -1,0 +1,22 @@
+{
+  "application_id": "APP00141",
+  "institution_id": "1-3791145744",
+  "institution_name": "Kalpana Buch Institute of Engineering and Technology, Anand",
+  "address": "446, Sant Nagar, Anand, Gujarat - 516204",
+  "region": "Western",
+  "application_date": "2026-03-06",
+  "category": "Extension of Approval",
+  "requested_intake": {
+    "B.Tech Mechanical Engineering": 60,
+    "Diploma in Mechanical Engineering": 120,
+    "B.Tech Civil Engineering": 60
+  },
+  "uploaded_documents": [
+    "affidavit",
+    "lease_deed",
+    "fire_noc",
+    "nba_certificate",
+    "eoa_letter",
+    "ter_receipt"
+  ]
+}

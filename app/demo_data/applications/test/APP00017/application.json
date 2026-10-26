@@ -1,0 +1,23 @@
+{
+  "application_id": "APP00017",
+  "institution_id": "1-4697628658",
+  "institution_name": "Vivekananda Dube Institute of Technology and Management, Madurai",
+  "address": "428, Venkatesh, Madurai, Tamil Nadu - 555704",
+  "region": "Southern",
+  "application_date": "2026-03-13",
+  "category": "Extension of Approval",
+  "requested_intake": {
+    "M.Tech VLSI Design": 24,
+    "B.Tech Civil Engineering": 60,
+    "B.Tech Electrical and Electronics Engineering": 60,
+    "B.Tech Mechanical Engineering": 120
+  },
+  "uploaded_documents": [
+    "affidavit",
+    "lease_deed",
+    "fire_noc",
+    "nba_certificate",
+    "eoa_letter",
+    "ter_receipt"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "application_id": "APP00027",
+  "institution_id": "1-6131390117",
+  "institution_name": "Pragati Bhatnagar Institute of Technology and Management, Kochi",
+  "address": "55, Sabharwal Nagar, Kochi, Kerala - 539647",
+  "region": "South-West",
+  "application_date": "2026-02-04",
+  "category": "Extension of Approval",
+  "requested_intake": {
+    "M.Tech Structural Engineering": 18,
+    "Diploma in Mechanical Engineering": 120,
+    "B.Tech Artificial Intelligence and Data Science": 60,
+    "MBA": 60,
+    "MCA": 60
+  },
+  "uploaded_documents": [
+    "affidavit",
+    "lease_deed",
+    "fire_noc",
+    "nba_certificate",
+    "eoa_letter",
+    "ter_receipt"
+  ]
+}

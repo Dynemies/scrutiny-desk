@@ -1,0 +1,23 @@
+{
+  "application_id": "APP00029",
+  "institution_id": "1-7430251024",
+  "institution_name": "Sarada Mutti College of Engineering and Technology, Prayagraj",
+  "address": "263, Kale, Prayagraj, Uttar Pradesh - 514653",
+  "region": "Northern",
+  "application_date": "2026-01-18",
+  "category": "Extension of Approval",
+  "requested_intake": {
+    "B.Tech Mechanical Engineering": 60,
+    "B.Tech Electronics and Communication Engineering": 60,
+    "B.Tech Computer Science and Engineering": 60,
+    "Diploma in Mechanical Engineering": 60
+  },
+  "uploaded_documents": [
+    "affidavit",
+    "lease_deed",
+    "fire_noc",
+    "nba_certificate",
+    "eoa_letter",
+    "ter_receipt"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "application_id": "APP00066",
+  "institution_id": "1-4846924938",
+  "institution_name": "Sahyadri Ramanathan College of Engineering and Technology, Mangaluru",
+  "address": "273, Zacharia Circle, Mangaluru, Karnataka - 558059",
+  "region": "South-West",
+  "application_date": "2026-01-27",
+  "category": "Extension of Approval",
+  "requested_intake": {
+    "M.Tech Structural Engineering": 24,
+    "MBA": 60,
+    "B.Tech Artificial Intelligence and Data Science": 60,
+    "B.Tech Civil Engineering": 60
+  },
+  "uploaded_documents": [
+    "affidavit",
+    "lease_deed",
+    "fire_noc",
+    "eoa_letter",
+    "ter_receipt"
+  ]
+}

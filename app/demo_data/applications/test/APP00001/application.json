@@ -1,0 +1,24 @@
+{
+  "application_id": "APP00001",
+  "institution_id": "1-6881081398",
+  "institution_name": "Kalpana Agate Institute of Technology and Management, Pune",
+  "address": "224, Buch, Pune, Maharashtra - 572207",
+  "region": "Western",
+  "application_date": "2026-03-23",
+  "category": "Extension of Approval",
+  "requested_intake": {
+    "B.Tech Electrical and Electronics Engineering": 60,
+    "B.Tech Mechanical Engineering": 120,
+    "Diploma in Mechanical Engineering": 60,
+    "M.Tech Structural Engineering": 24,
+    "MCA": 150
+  },
+  "uploaded_documents": [
+    "affidavit",
+    "lease_deed",
+    "fire_noc",
+    "nba_certificate",
+    "eoa_letter",
+    "ter_receipt"
+  ]
+}

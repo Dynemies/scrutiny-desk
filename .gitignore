@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+*.pth
+*.pt
+.DS_Store
+.ipynb_checkpoints/
+app/demo_data/page_hashes.json.lock

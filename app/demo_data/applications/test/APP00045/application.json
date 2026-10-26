@@ -1,0 +1,22 @@
+{
+  "application_id": "APP00045",
+  "institution_id": "1-7362082776",
+  "institution_name": "Siddhartha Prasad College of Engineering, Ahmedabad",
+  "address": "100, Pillai Zila, Ahmedabad, Gujarat - 682903",
+  "region": "Western",
+  "application_date": "2026-02-11",
+  "category": "Extension of Approval",
+  "requested_intake": {
+    "B.Tech Electrical and Electronics Engineering": 30,
+    "B.Tech Computer Science and Engineering": 60,
+    "B.Tech Electronics and Communication Engineering": 120
+  },
+  "uploaded_documents": [
+    "affidavit",
+    "lease_deed",
+    "fire_noc",
+    "nba_certificate",
+    "eoa_letter",
+    "ter_receipt"
+  ]
+}

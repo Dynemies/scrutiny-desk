@@ -1,0 +1,10 @@
+[
+ {"epoch": 1, "train_loss": 0.3471, "set": "val_ep1", "images": 200, "tampered": 85, "authentic": 115, "pixel_f1_mean": 0.7492, "image_auc": 0.9008, "tampered_flagged": 0.7176, "authentic_flagged": 0, "authentic_pixel_false_alarm": 0.000005, "select_score": 1.65},
+ {"epoch": 2, "train_loss": 0.1099, "set": "val_ep2", "images": 200, "tampered": 85, "authentic": 115, "pixel_f1_mean": 0.8494, "image_auc": 0.929, "tampered_flagged": 0.7647, "authentic_flagged": 0, "authentic_pixel_false_alarm": 0.000011, "select_score": 1.7784},
+ {"epoch": 3, "train_loss": 0.0702, "set": "val_ep3", "images": 200, "tampered": 85, "authentic": 115, "pixel_f1_mean": 0.9179, "image_auc": 0.9852, "tampered_flagged": 0.7882, "authentic_flagged": 0, "authentic_pixel_false_alarm": 0.000003, "select_score": 1.9031},
+ {"epoch": 4, "train_loss": 0.045, "set": "val_ep4", "images": 200, "tampered": 85, "authentic": 115, "pixel_f1_mean": 0.944, "image_auc": 0.9459, "tampered_flagged": 0.8235, "authentic_flagged": 0, "authentic_pixel_false_alarm": 0.000015, "select_score": 1.8899},
+ {"epoch": 5, "train_loss": 0.0353, "set": "val_ep5", "images": 200, "tampered": 85, "authentic": 115, "pixel_f1_mean": 0.9534, "image_auc": 0.9383, "tampered_flagged": 0.8235, "authentic_flagged": 0, "authentic_pixel_false_alarm": 0, "select_score": 1.8917},
+ {"epoch": 6, "train_loss": 0.0273, "set": "val_ep6", "images": 200, "tampered": 85, "authentic": 115, "pixel_f1_mean": 0.9571, "image_auc": 0.9249, "tampered_flagged": 0.8235, "authentic_flagged": 0, "authentic_pixel_false_alarm": 0, "select_score": 1.882},
+ {"epoch": 7, "train_loss": 0.0227, "set": "val_ep7", "images": 200, "tampered": 85, "authentic": 115, "pixel_f1_mean": 0.9555, "image_auc": 0.929, "tampered_flagged": 0.8235, "authentic_flagged": 0, "authentic_pixel_false_alarm": 0, "select_score": 1.8845},
+ {"epoch": 8, "train_loss": 0.0199, "set": "val_ep8", "images": 200, "tampered": 85, "authentic": 115, "pixel_f1_mean": 0.9558, "image_auc": 0.9247, "tampered_flagged": 0.8235, "authentic_flagged": 0, "authentic_pixel_false_alarm": 0, "select_score": 1.8805}
+]

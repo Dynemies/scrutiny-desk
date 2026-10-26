@@ -1,0 +1,23 @@
+{
+  "application_id": "APP00007",
+  "institution_id": "1-9245910816",
+  "institution_name": "Jnana Morar Institute of Technology and Management, Thrissur",
+  "address": "102, Thaker Circle, Thrissur, Kerala - 793208",
+  "region": "South-West",
+  "application_date": "2026-02-23",
+  "category": "Extension of Approval",
+  "requested_intake": {
+    "MBA": 120,
+    "B.Tech Artificial Intelligence and Data Science": 60,
+    "M.Tech Structural Engineering": 18,
+    "B.Tech Electrical and Electronics Engineering": 60
+  },
+  "uploaded_documents": [
+    "affidavit",
+    "lease_deed",
+    "fire_noc",
+    "nba_certificate",
+    "eoa_letter",
+    "ter_receipt"
+  ]
+}
