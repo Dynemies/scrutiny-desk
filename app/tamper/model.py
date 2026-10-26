@@ -28,7 +28,7 @@ STD = np.array([0.229, 0.224, 0.225], np.float32)
 
 def dependencies_ok():
     try:
-        import torch, torchvision, jpegio, timm, efficientnet_pytorch  # noqa: F401
+        import torch, torchvision, jpeglib, timm, efficientnet_pytorch  # noqa: F401
         return True, ""
     except ImportError as e:
         return False, str(e)
@@ -105,15 +105,21 @@ def to_jpeg_bytes(data, name=""):
 
 
 def _jpeg_parts(jpg):
-    import jpegio
-    tmp = Path(f"/tmp/scrutiny_{os.getpid()}_{time.time_ns()}.jpg"); tmp.write_bytes(jpg)
+    """Luma DCT coefficients and quantisation table. jpeglib has ready-made wheels for Windows, macOS and Linux;
+    its output was checked to be identical to jpegio (used in training) on the test pages and re-saved JPEGs."""
+    import tempfile
+    import jpeglib
+    fd, name = tempfile.mkstemp(suffix=".jpg"); os.close(fd)
+    tmp = Path(name); tmp.write_bytes(jpg)
     try:
-        j = jpegio.read(str(tmp))
+        j = jpeglib.read_dct(str(tmp))
+        Y, qt = j.Y, j.qt[j.quant_tbl_no[0]]
     finally:
         tmp.unlink(missing_ok=True)
+    coef = Y.transpose(0, 2, 1, 3).reshape(Y.shape[0] * 8, Y.shape[1] * 8)    # blocks -> one 2-D array, as jpegio gives
     rgb = cv2.cvtColor(cv2.imdecode(np.frombuffer(jpg, np.uint8), cv2.IMREAD_COLOR), cv2.COLOR_BGR2RGB)
-    dct = np.clip(np.abs(j.coef_arrays[0]), 0, 20).astype(np.int64)
-    qt = j.quant_tables[0].astype(np.int64)
+    dct = np.clip(np.abs(coef), 0, 20).astype(np.int64)
+    qt = np.asarray(qt).astype(np.int64)
     return rgb, dct, (Q75 if qt.max() > 63 else qt)
 
 

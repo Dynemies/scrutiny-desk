@@ -13,4 +13,4 @@ torch>=2.2
 torchvision>=0.17
 timm>=0.9
 efficientnet_pytorch>=0.7.1
-jpegio>=0.2.8        # builds from source: needs a C compiler (see packages.txt) and numpy
+jpeglib>=1.0.2       # reads JPEG compression data; wheels for Windows, macOS and Linux

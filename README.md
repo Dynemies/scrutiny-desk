@@ -69,9 +69,13 @@ On 150 generated applications, every planted problem of the rule-based types (ev
 ```
 git clone https://github.com/Dynemies/scrutiny-desk.git
 cd scrutiny-desk/app
+python -m venv .venv
+.venv\Scripts\activate          # Windows;  on macOS / Linux: source .venv/bin/activate
 pip install -r requirements.txt
 streamlit run app.py
 ```
+
+Python 3.10 to 3.12. The install downloads about 1 GB (mostly PyTorch) the first time.
 
 Opens at http://localhost:8501 with 14 sample applications. Results and tamper heatmaps are precomputed, so the demo runs on any laptop, without a GPU or the model file.
 
@@ -96,7 +100,7 @@ To re-score the 20 test pages yourself: `python lab_precompute.py` from `app/`.
 2. **Create app → Deploy a public app from GitHub**: repository `Dynemies/scrutiny-desk`, branch `main`, main file path `app/app.py`.
 3. Under **Advanced settings**, choose Python 3.12. Deploy.
 
-`app/requirements.txt` installs CPU-only PyTorch, and `packages.txt` adds the C compiler that `jpegio` needs to build. The first build takes several minutes. The 14 applications and the 20 test pages work straight away; live checks in the Tamper lab download the model on first use. Free apps get about 2.7 GB of memory, enough for the model on one page at a time.
+`app/requirements.txt` installs CPU-only PyTorch; every package has ready-made builds, so nothing is compiled. The first build takes several minutes. The 14 applications and the 20 test pages work straight away; live checks in the Tamper lab download the model on first use. Free apps get about 2.7 GB of memory, enough for the model on one page at a time.
 
 ## Model weights
 
