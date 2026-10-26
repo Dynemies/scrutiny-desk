@@ -9,6 +9,7 @@ Validation: 1,555 pages (571 edited, 984 genuine). Test: 1,607 pages (609 edited
 | `v2_ep3_validation_scores.csv`, `v2_ep3_test_scores.csv` | Fine-tune v2, epoch 3: **the model used in the app** |
 | `v2_ep4_validation_scores.csv`, `v2_ep4_test_scores.csv` | Fine-tune v2, epoch 4 (compared, not chosen) |
 | `history_v1.json` | v1 per-epoch training loss and validation scores (200 validation pages per epoch) |
+| `history_v2.json` | v2 per-epoch scores on a fixed 400-page validation set (epoch 0 = v1, the starting point). The cut-offs here came from only about 230 genuine pages, so the final cut-off (143 px) was re-chosen on all 1,555 validation pages |
 
 Columns: `tampered` (1 = edited page), `edit` (replacement, insertion, removal, copy_move, splicing), `doc_type`, `field`,
 `gt_area` (edited pixels), `pixel_f1` (overlap of the marked and the truly edited pixels, at probability 0.5),
