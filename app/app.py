@@ -171,7 +171,11 @@ with st.sidebar:
     st.caption(f"{len(pool)} of {len(app_ids)} applications")
 
 
-tab_app, tab_queue, tab_lab, tab_file = st.tabs(["Application", "Queue overview", "Tamper lab", "Check a file"])
+TABS = ["Application", "Queue overview", "Tamper lab", "Check a file"]
+try:      # the open tab follows the URL, so ?view=Tamper+lab opens the Tamper lab directly
+    tab_app, tab_queue, tab_lab, tab_file = st.tabs(TABS, key="view", bind="query-params")
+except TypeError:      # Streamlit older than 1.66: no URL binding
+    tab_app, tab_queue, tab_lab, tab_file = st.tabs(TABS)
 
 # ------------------------------------------------------------------ helpers for evidence images
 def load_page(app_id, doc):

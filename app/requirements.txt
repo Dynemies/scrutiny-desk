@@ -1,5 +1,5 @@
 # The desk itself
-streamlit>=1.40
+streamlit>=1.66
 pymupdf>=1.24
 pyhanko>=0.25
 opencv-python-headless>=4.8

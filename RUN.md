@@ -48,6 +48,10 @@ streamlit run app.py
 
 Your browser opens at **http://localhost:8501**. If it does not, open that address yourself. To stop the app, press `Ctrl + C` in the terminal.
 
+To go straight to the Tamper lab, open **http://localhost:8501/?view=Tamper+lab**.
+
+Just want to look, without installing? Use the [live app](https://scrutiny-desk.streamlit.app/?view=Tamper+lab).
+
 ## 5. What to look at
 
 | Tab | What you see |

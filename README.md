@@ -2,6 +2,8 @@
 
 **AI-assisted checking of AICTE approval applications: catches edited, expired, unsigned, mismatched and re-used documents before an officer opens the file, and shows the evidence for every finding.**
 
+[![Open the Tamper lab in your browser](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://scrutiny-desk.streamlit.app/?view=Tamper+lab) &nbsp; **[Open the Tamper lab](https://scrutiny-desk.streamlit.app/?view=Tamper+lab)**: the live app, running this repository's code. Nothing to install.
+
 Smart India Hackathon 2026 · Problem statement **SIH26261** (AICTE): *AI-powered application validation, document authentication and regulatory compliance verification.*
 
 > Everything in this repository is synthetic: institutions, people, numbers, documents and records are generated.
@@ -100,7 +102,10 @@ To re-score the 20 test pages yourself: `python lab_precompute.py` from `app/`.
 
 1. Sign in at [share.streamlit.io](https://share.streamlit.io) with GitHub.
 2. **Create app → Deploy a public app from GitHub**: repository `Dynemies/scrutiny-desk`, branch `main`, main file path `app/app.py`.
-3. Under **Advanced settings**, choose Python 3.12. Deploy.
+3. **App URL**: `scrutiny-desk` (this is the address the link at the top of this page uses).
+4. Under **Advanced settings**, choose Python 3.12. Deploy.
+
+Any tab can be opened directly with `?view=` and its name: `?view=Tamper+lab`, `?view=Queue+overview`, `?view=Check+a+file`. The address bar follows the tab you are on, so you can copy and share it. A free app sleeps after a few days without visitors; the first visitor then presses *Yes, get this app back up* and waits about a minute.
 
 `app/requirements.txt` installs CPU-only PyTorch; every package has ready-made builds, so nothing is compiled. The first build takes several minutes. The 14 applications and the 20 test pages work straight away; live checks in the Tamper lab download the model on first use. Free apps get about 2.7 GB of memory, enough for the model on one page at a time.
 
