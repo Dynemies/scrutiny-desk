@@ -13,10 +13,13 @@ import pymupdf
 import streamlit as st
 from PIL import Image, ImageDraw
 
+import os
+
 import engine
 import lab
 
 HERE = Path(__file__).resolve().parent
+os.chdir(HERE)     # stored results use paths relative to app/; Streamlit Cloud starts in the repository root
 DATA_DIR = str(HERE / DATA_DIR) if not Path(DATA_DIR).is_absolute() else DATA_DIR   # works from any start folder
 
 st.set_page_config(page_title="Scrutiny desk", page_icon="📋", layout="wide", initial_sidebar_state="expanded")
