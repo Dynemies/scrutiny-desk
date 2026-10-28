@@ -58,8 +58,12 @@ Just want to look, without installing? Use the [live app](https://scrutiny-desk.
 | --- | --- |
 | **Application** | 14 sample applications in the left sidebar (*Needs action*, *Verified*, *All*). Pick one to see its verdict, each document, and the proof for every finding |
 | **Queue overview** | How many applications need an officer, what the checks found across all of them, and the waiting list |
+| **Alerts** | Every open item across the applications you can see: missing, expired or expiring documents, suspected edits, issuers not reachable or not yet replied, and who should act. *Queue notifications* logs them (no e-mail or SMS is sent in the prototype) |
 | **Tamper lab** | The tamper AI, page by page: heatmap, mask, true edit, close-up. Upload your own pages here |
-| **Check a file** | Upload one PDF: it checks the digital signature, spots changes made after signing, and looks for the same page in other applications. Try the files in [`samples/`](samples), e.g. `03_changed_after_signing` |
+| **Check a file** | Upload one PDF: it checks the digital signature, spots changes made after signing, looks for the same page in other applications, reads the page and asks the issuer. Try the files in [`samples/`](samples), e.g. `03_changed_after_signing` |
+| **Rules** | The checklist, thresholds and issuers the desk applies, read from `app/rules/aicte_eoa.json` |
+
+**Signed in as** (top of the left panel) switches between a scrutiny officer (everything), a regional officer (one region) and an institution (its own application and alerts). Every application opened is logged.
 
 ### The Tamper lab
 

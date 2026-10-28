@@ -15,6 +15,7 @@ from PIL import Image, ImageDraw
 
 import os
 
+import access
 import engine
 import lab
 
@@ -25,7 +26,8 @@ DATA_DIR = str(HERE / DATA_DIR) if not Path(DATA_DIR).is_absolute() else DATA_DI
 st.set_page_config(page_title="Scrutiny desk", page_icon="📋", layout="wide", initial_sidebar_state="expanded")
 
 STAMP_CLASS = {"verified": "ok", "missing": "flag", "mismatch_detected": "flag", "expired": "flag",
-               "deficiency": "flag", "manual_review_required": "review", "verification_pending": "review"}
+               "deficiency": "flag", "manual_review_required": "review", "verification_pending": "review",
+               "source_unavailable": "review"}
 INK = {"ok": (30, 106, 80), "flag": (179, 38, 30), "review": (154, 91, 0)}
 
 st.markdown("""
@@ -121,7 +123,7 @@ with st.spinner("Checking the queue"):
         results[a] = get_result(a)
 
 
-def diff_html(doc_value, record_value):
+def diff_html(doc_value, record_value, record_label="AICTE record"):
     """Two lines, document vs record, with the characters that differ marked."""
     import difflib
     sm = difflib.SequenceMatcher(None, record_value, doc_value, autojunk=False)
@@ -136,7 +138,7 @@ def diff_html(doc_value, record_value):
             if d_seg:
                 d_out.append(f'<mark class="new">{d_seg}</mark>')
     return ('<table class="diff"><tr><td class="k">Document</td><td>' + "".join(d_out) + '</td></tr>'
-            '<tr><td class="k">AICTE record</td><td>' + "".join(r_out) + '</td></tr></table>')
+            f'<tr><td class="k">{record_label}</td><td>' + "".join(r_out) + '</td></tr></table>')
 
 
 def stamp_html(status, small=None, big=True):
@@ -160,25 +162,56 @@ with st.sidebar:
     st.markdown('<p class="desk-title">Scrutiny desk</p>'
                 '<p class="desk-sub">Extension of Approval applications, checked before an officer opens them.</p>',
                 unsafe_allow_html=True)
+    ROLES = ["Scrutiny officer", "Regional officer", "Institution"]
+    role = st.selectbox("Signed in as", ROLES, key="role")
+    if role == "Regional officer":
+        regions = sorted({results[a]["application"]["region"] for a in app_ids})
+        region = st.selectbox("Region", regions, key="region")
+        scope = [a for a in app_ids if results[a]["application"]["region"] == region]
+        who = f"Regional officer, {region}"
+    elif role == "Institution":
+        mine = st.selectbox("Institution", app_ids, key="inst",
+                            format_func=lambda a: short(results[a]["application"]["institution_name"]))
+        scope = [mine]
+        who = f"Institution, {short(results[mine]['application']['institution_name'])}"
+    else:
+        scope = list(app_ids)
+        who = "Scrutiny officer, all regions"
+    st.caption("Demo sign-in: roles are simulated here. A deployment uses the AICTE portal login.")
     show = st.segmented_control("Show", ["Needs action", "Verified", "All"], default="Needs action",
                                 label_visibility="collapsed") or "Needs action"
-    pool = [a for a in app_ids if show == "All" or (show == "Verified") == (results[a]["status"] == "verified")]
-    if not pool:
-        st.info("Nothing in this list.")
-        st.stop()
+    pool = [a for a in scope if show == "All" or (show == "Verified") == (results[a]["status"] == "verified")]
+    if not pool:      # e.g. an institution whose file is clear: show what there is rather than an empty desk
+        st.caption("Nothing in this list; showing all.")
+        pool = list(scope)
     dot = {"ok": ":green[●]", "flag": ":red[●]", "review": ":orange[●]"}
     chosen = st.radio(
         "Applications", pool, label_visibility="collapsed",
         format_func=lambda a: f"{dot[STAMP_CLASS[results[a]['status']]]} {short(results[a]['application']['institution_name'])}",
         captions=[f"{a}, {engine.STATUS_LABEL[results[a]['status']].lower()}" for a in pool], key="queue")
-    st.caption(f"{len(pool)} of {len(app_ids)} applications")
+    st.caption(f"{len(pool)} of {len(scope)} applications")
+    access.record(who, chosen)
 
 
-TABS = ["Application", "Queue overview", "Tamper lab", "Check a file"]
+TABS = ["Application", "Queue overview", "Alerts", "Tamper lab", "Check a file", "Rules"]
+ALLOWED = {"Scrutiny officer": TABS, "Regional officer": ["Application", "Queue overview", "Alerts", "Rules"],
+           "Institution": ["Application", "Alerts"]}[role]
 try:      # the open tab follows the URL, so ?view=Tamper+lab opens the Tamper lab directly
-    tab_app, tab_queue, tab_lab, tab_file = st.tabs(TABS, key="view", bind="query-params")
+    shown = st.tabs(ALLOWED, key="view", bind="query-params")
 except TypeError:      # Streamlit older than 1.66: no URL binding
-    tab_app, tab_queue, tab_lab, tab_file = st.tabs(TABS)
+    shown = st.tabs(ALLOWED)
+_hidden = []
+
+
+def _tab(name):
+    """The tab's container, or a placeholder that is cleared at the end when this role may not see it."""
+    if name in ALLOWED:
+        return shown[ALLOWED.index(name)]
+    ph = st.empty(); _hidden.append(ph)
+    return ph.container()
+
+
+tab_app, tab_queue, tab_alerts, tab_lab, tab_file, tab_rules = (_tab(t) for t in TABS)
 
 # ------------------------------------------------------------------ helpers for evidence images
 def load_page(app_id, doc):
@@ -320,7 +353,8 @@ with tab_app:
                             unsafe_allow_html=True)
             for f in info["findings"]:
                 cls = STAMP_CLASS[f["status"]]
-                extra = diff_html(f["doc_value"], f["record_value"]) if f.get("doc_value") else ""
+                extra = diff_html(f["doc_value"], f["record_value"], "Issuer holds" if f["check"] == "Issuer" else "AICTE record") \
+                    if f.get("doc_value") else ""
                 st.markdown(f'<div class="finding {cls}"><span class="c">{f["check"]}</span><br><span class="t">{html.escape(f["text"])}</span>{extra}</div>',
                             unsafe_allow_html=True)
                 hit = [b for b, ff in boxes if ff is f]
@@ -342,6 +376,20 @@ with tab_app:
                 st.markdown(f'<div class="sigcard"><b>Digital signature.</b> {state}'
                             + (f'<br>Signed by {html.escape(sig.get("signer") or "")}' if sig.get("signer") else "") + "</div>",
                             unsafe_allow_html=True)
+            ver = info.get("verification") or {}
+            if ver:
+                res = {"verified": "Matches the issuer's record", "mismatch_detected": "Differs from the issuer's record",
+                       "source_unavailable": "Issuer not reachable online", "verification_pending": "Asked, awaiting reply",
+                       "manual_review_required": "Could not ask: reference not read"}.get(ver["result"], ver["result"])
+                rows = "".join(f'<tr><td>{html.escape(engine.FIELD_NAMES.get(c["field"], c["field"]))}</td>'
+                               f'<td>{html.escape(str(c["document"]))}</td><td>{html.escape(str(c["issuer"]))}</td>'
+                               f'<td>{"✓" if c["match"] else "✗"}</td></tr>' for c in ver.get("compared", []))
+                st.markdown(f'<div class="sigcard" style="margin-top:8px"><b>Issuer check.</b> {res}<br>'
+                            f'<span style="color:var(--muted)">{html.escape(ver["source"])} · '
+                            f'{html.escape(engine.FIELD_NAMES.get(ver["key_field"], ver["key_field"]))} {html.escape(str(ver.get("key") or "–"))} · '
+                            f'{ver["queried_at"].replace("T", " ")}</span>'
+                            + (f'<table class="plain" style="margin-top:6px"><tr><th>Field</th><th>On the page</th><th>Issuer holds</th><th></th></tr>{rows}</table>' if rows else "")
+                            + "</div>", unsafe_allow_html=True)
             tm = info.get("tamper")
             st.markdown('<p class="caption" style="margin-top:10px">'
                         + ("Tamper model: " + (engine.tamper_text(tm) if tm else "not connected yet") + ". ")
@@ -349,9 +397,9 @@ with tab_app:
 
 # ------------------------------------------------------------------ tab: queue overview
 with tab_queue:
-    total = len(app_ids)
+    total = len(scope)
     by = {}
-    for a in app_ids:
+    for a in scope:
         by.setdefault(results[a]["status"], []).append(a)
     need = total - len(by.get("verified", []))
     st.markdown(f'<p class="inst" style="font-size:1.6rem">{need} of {total} applications need an officer</p>'
@@ -369,7 +417,7 @@ with tab_queue:
     with c1:
         st.markdown("### What the checks found")
         counts = {}
-        for a in app_ids:
+        for a in scope:
             for d in results[a]["documents"].values():
                 for f in d["findings"]:
                     if not f.get("note"):
@@ -379,7 +427,8 @@ with tab_queue:
         mx = max(counts.values()) if counts else 1
         label = {"Checklist": "Missing documents", "Records": "Name or ID differs from record", "Validity": "Expired certificates",
                  "Land rule": "Lease shorter than course", "Signature": "Signature problems", "Re-use": "Pages re-used",
-                 "Intake": "Intake above approval", "Reading": "Blank fields", "Tampering": "Possible edits"}
+                 "Intake": "Intake above approval", "Reading": "Fields not found on the page", "Tampering": "Possible edits",
+                 "Issuer": "Issuer register differs or not reachable", "Document type": "Wrong document in a slot"}
         st.markdown('<table class="plain">' + "".join(
             f'<tr><td style="width:46%">{label.get(k, k)}</td><td><div class="hbar" style="width:{100 * v / mx:.0f}%"></div></td>'
             f'<td style="width:8%;text-align:right">{v}</td></tr>' for k, v in sorted(counts.items(), key=lambda x: -x[1])) + "</table>",
@@ -387,7 +436,7 @@ with tab_queue:
     with c2:
         st.markdown("### Waiting for an officer")
         rows = []
-        for a in sorted([a for a in app_ids if results[a]["status"] != "verified"],
+        for a in sorted([a for a in scope if results[a]["status"] != "verified"],
                         key=lambda a: (engine.STATUS_ORDER.index(results[a]["status"]), a))[:30]:
             rr = results[a]
             allf = [f for d in rr["documents"].values() for f in d["findings"] if not f.get("note")] + rr["application_findings"]
@@ -401,7 +450,7 @@ with tab_queue:
 with tab_file:
     st.markdown("### Check a signed PDF")
     st.markdown('<p class="meta">Upload one document. The desk verifies its digital signature, looks for changes made after '
-                'signing, and checks whether the same page was already submitted in another application.</p>', unsafe_allow_html=True)
+                'signing, checks whether the same page was already submitted in another application, reads the page and asks the issuer.</p>', unsafe_allow_html=True)
     up = st.file_uploader("PDF document", type=["pdf"], label_visibility="collapsed")
     if up:
         with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as t:
@@ -427,6 +476,29 @@ with tab_file:
             b.markdown(f'<div class="finding {"review" if hit else "ok"}"><span class="c">Re-use</span><br><span class="t">'
                        + (f"Same page is already on file in {hit.replace('/', ', ')}." if hit else "Not seen in any other application.")
                        + "</span></div>", unsafe_allow_html=True)
+            # read the page: what document is it, what does it say, and does the issuer agree?
+            with st.spinner("Reading the page"):
+                from tamper.ocr import ocr_lines
+                import reader as rd
+                import verify
+                rr = rd.read_fields(ocr_lines(raw), engine.RULES)
+            if rr["doc_type"] is None:
+                b.markdown('<div class="finding review"><span class="c">Reading</span><br><span class="t">'
+                           'Could not tell which document this is.</span></div>', unsafe_allow_html=True)
+            else:
+                spec = engine.RULES["documents"][rr["doc_type"]]
+                inst = next((x for x in store.records.values() if rd.fold(x["institution_id"]) == rd.fold(rr["fields"].get("aicte_id", ""))), None) \
+                    or next((x for x in store.records.values() if rd.squash(x["name"]) == rd.squash(rr["fields"].get("institution_name", ""))), None)
+                ver, vf = verify.verify(spec, rr["fields"], (inst or {}).get("state"), engine.parse_date)
+                rows = "".join(f'<tr><td>{html.escape(lab)}</td><td>{html.escape(rr["fields"].get(k, "– not found –"))}</td></tr>'
+                               for k, lab in spec["labels"].items())
+                b.markdown(f'<div class="sigcard" style="margin-top:8px"><b>Read as: {spec["name"]}</b>'
+                           f'<table class="plain" style="margin-top:6px">{rows}</table></div>', unsafe_allow_html=True)
+                cls = "ok" if vf is None else STAMP_CLASS[vf["status"]]
+                b.markdown(f'<div class="finding {cls}"><span class="c">Issuer</span><br><span class="t">'
+                           + html.escape(vf["text"] if vf else f"Matches the {spec['issuer']['name']}.")
+                           + f'</span><br><span style="color:var(--muted);font-size:.85rem">{html.escape(ver["source"])} · '
+                           f'{ver["queried_at"].replace("T", " ")}</span></div>', unsafe_allow_html=True)
         if sig["state"] == "modified_after_signing":
             reg = engine.changed_after_signing(path)
             if reg:
@@ -441,3 +513,100 @@ with tab_file:
 # ------------------------------------------------------------------ tab: tamper lab
 with tab_lab:
     lab.render()
+
+# ------------------------------------------------------------------ tab: alerts
+ALERT_KIND = [  # (kind, priority, who is told)
+    ("Suspected anomaly", "High", "Scrutiny officer"), ("Missing document", "High", "Institution"),
+    ("Expired document", "High", "Institution"), ("Discrepancy", "Medium", "Institution"),
+    ("Needs review", "Medium", "Scrutiny officer"), ("Issuer not online", "Low", "Scrutiny officer"),
+    ("Awaiting issuer", "Low", "Scrutiny officer"), ("Expires soon", "Low", "Institution")]
+
+
+def alerts_for(a):
+    r = results[a]; out = []
+    for d, info in r["documents"].items():
+        for f in info["findings"]:
+            if f.get("note"):
+                kind = "Expires soon"
+            elif f["check"] in ("Tampering", "Re-use", "Document type") or (f["check"] == "Signature" and f.get("region")) \
+                    or (f["check"] == "Issuer" and f["status"] == "mismatch_detected"):
+                kind = "Suspected anomaly"
+            else:
+                kind = {"missing": "Missing document", "expired": "Expired document", "mismatch_detected": "Discrepancy",
+                        "deficiency": "Discrepancy", "source_unavailable": "Issuer not online",
+                        "verification_pending": "Awaiting issuer"}.get(f["status"], "Needs review")
+            out.append({"kind": kind, "application": a, "document": engine.DOC_NAMES[d], "text": f["text"]})
+    for f in r["application_findings"]:
+        out.append({"kind": "Discrepancy" if f["status"] == "deficiency" else "Needs review", "application": a,
+                    "document": "Application", "text": f["text"]})
+    pri = {k: (p, t) for k, p, t in ALERT_KIND}
+    for o in out:
+        o["priority"], o["to"] = pri[o["kind"]]
+    return out
+
+
+with tab_alerts:
+    all_alerts = [x for a in scope for x in alerts_for(a)]
+    st.markdown(f'<p class="inst" style="font-size:1.6rem">{len(all_alerts)} open alerts</p>'
+                f'<p class="meta">{who}. Each alert names the document, the reason and who should act.</p>',
+                unsafe_allow_html=True)
+    counts = {k: sum(x["kind"] == k for x in all_alerts) for k, _, _ in ALERT_KIND}
+    kinds = [k for k, _, _ in ALERT_KIND if counts[k]]
+    pick = st.pills("Alert type", kinds, selection_mode="multi", default=kinds, key="alert_kinds",
+                    format_func=lambda k: f"{k} ({counts[k]})", label_visibility="collapsed") or kinds
+    rows = [x for x in all_alerts if x["kind"] in pick]
+    order = {"High": 0, "Medium": 1, "Low": 2}
+    rows.sort(key=lambda x: (order[x["priority"]], x["application"]))
+    color = {"High": "var(--flag)", "Medium": "var(--review)", "Low": "var(--muted)"}
+    st.markdown('<table class="plain"><tr><th>Priority</th><th>Alert</th><th>Application</th><th>Institution</th>'
+                '<th>Document</th><th>Reason</th><th>Tell</th></tr>' + "".join(
+                    f'<tr><td style="color:{color[x["priority"]]};font-weight:600">{x["priority"]}</td><td>{x["kind"]}</td>'
+                    f'<td style="white-space:nowrap">{x["application"]}</td>'
+                    f'<td>{html.escape(short(results[x["application"]]["application"]["institution_name"]))}</td>'
+                    f'<td>{x["document"]}</td><td>{html.escape(x["text"])}</td><td>{x["to"]}</td></tr>' for x in rows)
+                + "</table>", unsafe_allow_html=True)
+    st.write("")
+    if role != "Institution" and rows:
+        if st.button(f"Queue {len(rows)} notifications", key="notify"):
+            access.notify(who, rows)
+            st.success(f"{len(rows)} notifications queued and logged. In the prototype no e-mail or SMS is sent; "
+                       "a deployment connects the AICTE notification service here.")
+    with st.expander("Access and notification log"):
+        log = [e for e in access.read() if role == "Scrutiny officer" or e.get("who") == who]
+        if not log:
+            st.caption("Nothing logged yet.")
+        else:
+            st.markdown('<table class="plain"><tr><th>Time</th><th>Who</th><th>What</th></tr>' + "".join(
+                f'<tr><td style="white-space:nowrap">{e["at"].replace("T", " ")}</td><td>{html.escape(e["who"])}</td>'
+                f'<td>{"Opened " + e["what"] if e["kind"] == "view" else "Notification to " + e["to"] + " about " + e["what"] + ": " + html.escape(e["text"])}</td></tr>'
+                for e in log[:60]) + "</table>", unsafe_allow_html=True)
+
+# ------------------------------------------------------------------ tab: rules
+with tab_rules:
+    R = engine.RULES
+    st.markdown("### Rules the desk applies")
+    st.markdown('<p class="meta">Read from <code>app/rules/aicte_eoa.json</code>. Officials change a checklist, a threshold '
+                'or a label there, without touching code. The values are for this synthetic prototype and must be set from '
+                'the Approval Process Handbook in force.</p>', unsafe_allow_html=True)
+    c1, c2 = st.columns([5, 6], gap="large")
+    with c1:
+        for cat, spec in R["categories"].items():
+            st.markdown(f"**Checklist: {cat}**")
+            st.markdown('<table class="plain">' + "".join(
+                f'<tr><td>{engine.DOC_NAMES[d]}</td><td style="color:var(--muted)">required</td></tr>'
+                for d in spec["required_documents"]) + "</table>", unsafe_allow_html=True)
+            st.caption(spec.get("handbook_ref", ""))
+        st.markdown("**Thresholds and switches**")
+        st.markdown('<table class="plain">' + "".join(
+            f'<tr><td>{html.escape(v["label"])}</td><td style="text-align:right;font-weight:600">'
+            f'{"on" if v["value"] is True else "off" if v["value"] is False else v["value"]}</td></tr>'
+            for v in R["rules"].values()) + "</table>", unsafe_allow_html=True)
+    with c2:
+        st.markdown("**Documents: fields read and how each is verified**")
+        st.markdown('<table class="plain"><tr><th>Document</th><th>Fields read</th><th>Verified with</th><th>Compared</th></tr>' + "".join(
+            f'<tr><td>{spec["name"]}</td><td>{len(spec["labels"])}</td><td>{html.escape(spec["issuer"]["name"])}</td>'
+            f'<td>{", ".join(engine.FIELD_NAMES.get(f, f) for f in spec["issuer"]["compare"])}</td></tr>'
+            for spec in R["documents"].values()) + "</table>", unsafe_allow_html=True)
+
+for _ph in _hidden:      # tabs this role may not see
+    _ph.empty()

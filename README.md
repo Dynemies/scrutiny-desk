@@ -17,6 +17,8 @@ An institution applying for Extension of Approval uploads a set of documents: af
 
 | Check | What it catches | How |
 | --- | --- | --- |
+| **Reading (OCR)** | Which document a page is, and what it says; fields missing from the page | OCR (PP-OCRv3 via RapidOCR) plus a layout-aware field reader; unsure reads are read twice and go to a person when the reads disagree |
+| **Issuer** | A document the issuer did not issue, or issued with different values | Reference number looked up with the issuing authority (e-stamp, sub-registrar, fire NOC, NBA, AICTE approvals, fee ledger); source and time recorded. **Simulated registers in this prototype** |
 | **Edited image** | A digit, name or date repainted in the scanned page | Fine-tuned FFDN tamper model; a heatmap marks the edited area |
 | **Changed after signing** | Text covered and retyped after the PDF was digitally signed (the signature still "verifies") | Signed revision compared with the uploaded file; the changed area is boxed |
 | **Signature** | Unsigned or invalid documents | pyHanko validation against the trust root |
@@ -26,13 +28,17 @@ An institution applying for Extension of Approval uploads a set of documents: af
 | **Re-use** | The same page uploaded by another institution | Page fingerprint, confirmed pixel by pixel |
 | **Missing** | Required documents not uploaded | Extension of Approval checklist |
 
+Every finding has a status the problem statement names (verified, mismatch detected, expired, verification pending, source unavailable, manual review required), its reason, and the proof on the page. The checklists, labels, issuers and thresholds live in [`app/rules/aicte_eoa.json`](app/rules/aicte_eoa.json), so they change without code changes. The app also has an **Alerts** view (missing, expired, expiring, anomalies, pending issuer replies, with who should act), a per-application **audit trail**, an access and notification log, and three roles (scrutiny officer, regional officer, institution) that see different scopes. Sign-in and notifications are simulated in the prototype.
+
 ```mermaid
 flowchart LR
     A[Uploaded PDFs] --> S[Signature and<br/>after-signing check]
     A --> P[Scanned page]
     P --> T[Tamper model<br/>heatmap]
-    P --> R[Field reading]
+    P --> R[OCR reader:<br/>document type + fields]
     R --> C[Records, validity<br/>and rule checks]
+    R --> I[Issuer register<br/>lookup]
+    I --> V
     P --> F[Page fingerprint<br/>re-use check]
     S --> V[Findings with evidence]
     T --> V
@@ -40,6 +46,20 @@ flowchart LR
     F --> V
     V --> O[Officer decides]
 ```
+
+## How it covers SIH26261
+
+| Deliverable in the problem statement | In this prototype |
+| --- | --- |
+| Prototype designed for integration with the AICTE portal | Streamlit desk on synthetic data; checks are plain Python functions (`app/engine.py`) ready to sit behind the portal |
+| Category-based checklists, configurable rules | `app/rules/aicte_eoa.json` (Extension of Approval); the **Rules** tab shows what is applied |
+| OCR classification, extraction, completeness | OCR reader: document type, every field, missing fields, unsure reads sent to a person |
+| Record and cross-document consistency, evidence-linked flags | Name and ID against the AICTE record, differing characters marked; proof shown on the page |
+| Verification with issuing authorities | Digital signatures and post-signing edits (real); issuer register lookup (simulated registers) |
+| Compliance help for documents and infrastructure | Lease, validity, intake and signature rules; infrastructure photos not yet |
+| Dashboard: status, deficiencies, verification, pending, audit | Application and Queue views, **Alerts**, audit trail per application, access and notification log |
+| Role-based access, secure handling, human review | Three roles with different scopes (simulated sign-in); nothing is ever rejected automatically |
+| Anomaly and forgery detection | Tamper model (pixel edits), after-signing edits, re-used pages, issuer mismatches |
 
 ## Results
 
@@ -62,9 +82,15 @@ On the app's 14 demo applications (83 pages), the model flags both edited pages,
 
 v2 continues from v1 with two changes: *hard negatives* (training on the exact spots where v1 wrongly fired on genuine pages, plus genuine text) and choosing the epoch with the same rule the app uses. Page-level AUC: 0.980 (v1: 0.962). Per-page scores for every model are in [`results/`](results).
 
+### Document reader (OCR)
+
+On 240 pages from 40 applications the reader was never tuned on: document type right on **240 of 240**, fields read exactly on **1,391 of 1,400 (99.4%)**, ignoring spaces and the O/0, I/1 look-alikes. Reads the OCR is unsure of are read a second time; when the two reads disagree the field goes to a person instead of being used.
+
+The whole desk (OCR reader, records, rules, signature, re-use, issuer lookup) on those 40 applications, whose documents are all genuine: **10 of 240 documents sent for a human check (4.2%)**, every one as *needs review* (a name read with one letter off, a field the OCR missed or was unsure of), **none marked as a mismatch**. The tamper model was not part of this run.
+
 ### Rule checks
 
-On 150 generated applications, every planted problem of the rule-based types (every row of the table above except *Edited image*) was caught, with no false alarms on 748 clean documents (`app/score_engine.py`). These runs use a stand-in reader that knows each printed field exactly; they will be re-measured once a trained reader extracts the fields from the page.
+On 150 generated applications, every planted problem of the rule-based types (every row of the table above except *Edited image*) was caught, with no false alarms on 748 clean documents (`app/score_engine.py`). These runs used a stand-in reader that knew each printed field exactly; the OCR reader's own accuracy is above.
 
 ## Run it
 
@@ -95,6 +121,7 @@ Upload your own pages (JPEG, PNG or PDF) to check them live. The first check dow
 
 To re-score the 20 test pages yourself: `python lab_precompute.py` from `app/`.
 
+![Alerts: every open item, its priority and who should act](docs/screenshots/7_alerts.png)
 ![Tamper lab: 20 test pages with verdicts](docs/screenshots/5_tamper_lab.png)
 ![One page in detail: a single inserted digit in the AICTE ID, boxed, with the verdict and the facts](docs/screenshots/6_tamper_lab_detail.png)
 
@@ -135,7 +162,9 @@ Each training epoch runs in its own fresh process, so host memory cannot build u
 - Tested on synthetic documents. They imitate real scans (paper tint, slight rotation, sensor noise, JPEG re-saves, three layouts), but real uploads will differ. Real samples are the next test.
 - Edits pasted from another of our own generated pages, in the same font and on the same paper, leave almost no pixel trace. Most of the remaining misses are like this. Checking printed numbers against the issuer's register (payment ledger, e-stamp, NOC and NBA records) would cover them.
 - About 1 in 100 genuine pages is flagged. Some of these marks are box-shaped, over a date or reference number. Flags go to an officer for review and never reject anything on their own.
-- Field reading in this prototype is a stand-in; the trained reader is the next step.
+- Issuer verification runs against **simulated** registers built from the synthetic data, with invented online/offline coverage per state. A deployment replaces `lookup()` in `app/verify.py` with the authorised sources (issuer APIs, portals, DigiLocker, QR codes).
+- Roles are picked from a menu, not a login, and notifications are logged, not sent. Infrastructure photos and floor plans are not checked yet.
+- The checklist and thresholds in `app/rules/aicte_eoa.json` are for the prototype; they must be set from the Approval Process Handbook in force.
 
 ## Repository
 

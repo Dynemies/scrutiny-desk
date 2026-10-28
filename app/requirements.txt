@@ -2,7 +2,7 @@
 streamlit>=1.66
 pymupdf>=1.24
 pyhanko>=0.25
-opencv-python-headless>=4.8
+opencv-python>=4.8
 numpy>=1.26
 pillow>=10.0
 tqdm>=4.66
@@ -14,3 +14,6 @@ torchvision>=0.17
 timm>=0.9
 efficientnet_pytorch>=0.7.1
 jpeglib>=1.0.2       # reads JPEG compression data; wheels for Windows, macOS and Linux
+
+# OCR reader (PP-OCRv3 models ship inside the package; runs offline on CPU)
+rapidocr-onnxruntime==1.2.3

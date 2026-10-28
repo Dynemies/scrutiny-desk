@@ -1,0 +1,975 @@
+{
+ "_about": "SIMULATED registers for the synthetic demo data. Not real issuer data.",
+ "registers": {
+  "estamp": {
+   "entries": {
+    "IN-MH91430747776388X": {
+     "fields": {
+      "estamp_cert_no": "IN-MH91430747776388X",
+      "estamp_issue_date": "18/03/2026",
+      "stamp_duty": "Rs. 100",
+      "institution_name": "Kalpana Agate Institute of Technology and Management, Pune",
+      "aicte_id": "1-6881081398",
+      "deponent_name": "Bhavna Chaudhari",
+      "notary_reg_no": "MH/NOT/7622/2020",
+      "sworn_date": "19/03/2026"
+     },
+     "issued_to": "APP00001"
+    },
+    "IN-TN66296095642302T": {
+     "fields": {
+      "estamp_cert_no": "IN-TN66296095642302T",
+      "estamp_issue_date": "01/03/2026",
+      "stamp_duty": "Rs. 100",
+      "institution_name": "Vivekananda Dube Institute of Technology and Management, Madurai",
+      "aicte_id": "1-4697628658",
+      "deponent_name": "Radha Nayar",
+      "notary_reg_no": "TN/NOT/9296/2024",
+      "sworn_date": "02/03/2026"
+     },
+     "issued_to": "APP00017"
+    },
+    "IN-KL58909389358708C": {
+     "fields": {
+      "estamp_cert_no": "IN-KL58909389358708C",
+      "estamp_issue_date": "10-01-2026",
+      "stamp_duty": "Rs. 100",
+      "institution_name": "Pragati Bhatnagar Institute of Technology and Management, Kochi",
+      "aicte_id": "1-6131396117",
+      "deponent_name": "Oeshi Aurora",
+      "notary_reg_no": "KL/NOT/5603/2015",
+      "sworn_date": "10-01-2026"
+     },
+     "issued_to": "APP00027"
+    },
+    "IN-GJ97216601625397C": {
+     "fields": {
+      "estamp_cert_no": "IN-GJ97216601625397C",
+      "estamp_issue_date": "05/02/2026",
+      "stamp_duty": "Rs. 100",
+      "institution_name": "Siddhartha Prasad College of Engineering, Ahmedabad",
+      "aicte_id": "1-7362082776",
+      "deponent_name": "Tarak Wali",
+      "notary_reg_no": "GJ/NOT/6731/2018",
+      "sworn_date": "05/02/2026"
+     },
+     "issued_to": "APP00045"
+    },
+    "IN-GJ30458243583655F": {
+     "fields": {
+      "estamp_cert_no": "IN-GJ30458243583655F",
+      "estamp_issue_date": "19-02-2026",
+      "stamp_duty": "Rs. 100",
+      "institution_name": "Kalpana Buch Institute of Engineering and Technology, Anand",
+      "aicte_id": "1-3791145744",
+      "deponent_name": "Charles Baral",
+      "notary_reg_no": "GJ/NOT/9188/2024",
+      "sworn_date": "21-02-2026"
+     },
+     "issued_to": "APP00141"
+    },
+    "IN-OD77992298369579H": {
+     "fields": {
+      "estamp_cert_no": "IN-OD77992298369579H",
+      "estamp_issue_date": "16-03-2026",
+      "stamp_duty": "Rs. 100",
+      "institution_name": "Sanjeevani Dani Institute of Technology, Cuttack",
+      "aicte_id": "1-5026590100",
+      "deponent_name": "Udant Salvi",
+      "notary_reg_no": "OD/NOT/2138/2018",
+      "sworn_date": "16-03-2026"
+     },
+     "issued_to": "APP00000"
+    },
+    "IN-KL99781547850421A": {
+     "fields": {
+      "estamp_cert_no": "IN-KL99781547850421A",
+      "estamp_issue_date": "11/02/2026",
+      "stamp_duty": "Rs. 100",
+      "institution_name": "Gyan Murthy College of Engineering and Technology, Kozhikode",
+      "aicte_id": "1-8978651095",
+      "deponent_name": "Ijaya Parikh",
+      "notary_reg_no": "KL/NOT/4116/2017",
+      "sworn_date": "11/02/2026"
+     },
+     "issued_to": "APP00002"
+    },
+    "IN-KL66286622229350P": {
+     "fields": {
+      "estamp_cert_no": "IN-KL66286622229350P",
+      "estamp_issue_date": "09-02-2026",
+      "stamp_duty": "Rs. 100",
+      "institution_name": "Jnana Morar Institute of Technology and Management, Thrissur",
+      "aicte_id": "1-9245910816",
+      "deponent_name": "Neelima Sant",
+      "notary_reg_no": "KL/NOT/1149/2020",
+      "sworn_date": "09-02-2026"
+     },
+     "issued_to": "APP00007"
+    },
+    "IN-UP36458249839799K": {
+     "fields": {
+      "estamp_cert_no": "IN-UP36458249839799K",
+      "estamp_issue_date": "04 January 2026",
+      "stamp_duty": "Rs. 100",
+      "institution_name": "Shri Rastogi College of Engineering and Technology, Kanpur",
+      "aicte_id": "1-9232675398",
+      "deponent_name": "Chakradev Bava",
+      "notary_reg_no": "UP/NOT/1975/2023",
+      "sworn_date": "05 January 2026"
+     },
+     "issued_to": "APP00018"
+    },
+    "IN-UP00782693652431L": {
+     "fields": {
+      "estamp_cert_no": "IN-UP00782693652431L",
+      "estamp_issue_date": "07 January 2026",
+      "stamp_duty": "Rs. 100",
+      "institution_name": "Sarada Mutti College of Engineering and Technology, Prayagraj",
+      "aicte_id": "1-7430251024",
+      "deponent_name": "Pooja Dar",
+      "notary_reg_no": "UP/NOT/1351/2021",
+      "sworn_date": "09 January 2026"
+     },
+     "issued_to": "APP00029"
+    },
+    "IN-KL58845425193241C": {
+     "fields": {
+      "estamp_cert_no": "IN-KL58845425193241C",
+      "estamp_issue_date": "09/02/2026",
+      "stamp_duty": "Rs. 100",
+      "institution_name": "Prerana Issac College of Engineering, Kozhikode",
+      "aicte_id": "1-2729528555",
+      "deponent_name": "Daksha Kamdar",
+      "notary_reg_no": "KL/NOT/6722/2015",
+      "sworn_date": "09/02/2026"
+     },
+     "issued_to": "APP00062"
+    },
+    "IN-KA11691063132794D": {
+     "fields": {
+      "estamp_cert_no": "IN-KA11691063132794D",
+      "estamp_issue_date": "19/01/2026",
+      "stamp_duty": "Rs. 100",
+      "institution_name": "Sahyadri Ramanathan College of Engineering and Technology, Mangaluru",
+      "aicte_id": "1-4846924938",
+      "deponent_name": "Max Dua",
+      "notary_reg_no": "KA/NOT/6023/2022",
+      "sworn_date": "19/01/2026"
+     },
+     "issued_to": "APP00066"
+    },
+    "IN-OD05890228333185S": {
+     "fields": {
+      "estamp_cert_no": "IN-OD05890228333185S",
+      "estamp_issue_date": "12/03/2026",
+      "stamp_duty": "Rs. 100",
+      "institution_name": "Kalpana Srinivas Institute of Engineering and Technology, Sambalpur",
+      "aicte_id": "1-9327030569",
+      "deponent_name": "Lakshit Chakraborty",
+      "notary_reg_no": "OD/NOT/3790/2022",
+      "sworn_date": "12/03/2026"
+     },
+     "issued_to": "APP00035"
+    },
+    "IN-GJ96315437587715X": {
+     "fields": {
+      "estamp_cert_no": "IN-GJ96315437587715X",
+      "estamp_issue_date": "06/01/2026",
+      "stamp_duty": "Rs. 100",
+      "institution_name": "Sant Upadhyay Institute of Technology, Ahmedabad",
+      "aicte_id": "1-7681007877",
+      "deponent_name": "Eesha Nori",
+      "notary_reg_no": "GJ/NOT/2841/2023",
+      "sworn_date": "08/01/2026"
+     },
+     "issued_to": "APP00063"
+    }
+   },
+   "coverage": {
+    "online": "*"
+   },
+   "name": "e-Stamp register (Stock Holding Corporation)"
+  },
+  "payment_ledger": {
+   "entries": {
+    "TXN698341903271": {
+     "fields": {
+      "transaction_id": "TXN698341903271",
+      "institution_name": "Kalpana Agate Institute of Technology and Management, Pune",
+      "aicte_id": "1-6881081398",
+      "amount": "Rs. 1,25,000",
+      "payment_date": "21-03-2026",
+      "status": "SUCCESS"
+     },
+     "issued_to": "APP00001"
+    },
+    "TXN265560765141": {
+     "fields": {
+      "transaction_id": "TXN265560765141",
+      "institution_name": "Vivekananda Dube Institute of Technology and Management, Madurai",
+      "aicte_id": "1-4697628658",
+      "amount": "Rs. 1,10,000",
+      "payment_date": "02/03/2026",
+      "status": "SUCCESS"
+     },
+     "issued_to": "APP00017"
+    },
+    "TXN072372460802": {
+     "fields": {
+      "transaction_id": "TXN072372460802",
+      "institution_name": "Pragati Bhatnagar Institute of Technology and Management, Kochi",
+      "aicte_id": "1-6131390117",
+      "amount": "Rs. 1,25,000",
+      "payment_date": "25-01-2026",
+      "status": "SUCCESS"
+     },
+     "issued_to": "APP00027"
+    },
+    "TXN546064043240": {
+     "fields": {
+      "transaction_id": "TXN546064043240",
+      "institution_name": "Siddhartha Prasad College of Engineering, Ahmedabad",
+      "aicte_id": "1-7362082776",
+      "amount": "Rs. 95,000",
+      "payment_date": "28 January 2026",
+      "status": "SUCCESS"
+     },
+     "issued_to": "APP00045"
+    },
+    "TXN178859377062": {
+     "fields": {
+      "transaction_id": "TXN178859377062",
+      "institution_name": "Kalpana Buch Institute of Engineering and Technology, Anand",
+      "aicte_id": "1-3791145744",
+      "amount": "Rs. 95,000",
+      "payment_date": "05 March 2026",
+      "status": "SUCCESS"
+     },
+     "issued_to": "APP00141"
+    },
+    "TXN450114594609": {
+     "fields": {
+      "transaction_id": "TXN450114594609",
+      "institution_name": "Sanjeevani Dani Institute of Technology, Cuttack",
+      "aicte_id": "1-5026590100",
+      "amount": "Rs. 95,000",
+      "payment_date": "15 March 2026",
+      "status": "SUCCESS"
+     },
+     "issued_to": "APP00000"
+    },
+    "TXN663462401886": {
+     "fields": {
+      "transaction_id": "TXN663462401886",
+      "institution_name": "Gyan Murthy College of Engineering and Technology, Kozhikode",
+      "aicte_id": "1-8978651095",
+      "amount": "Rs. 95,000",
+      "payment_date": "18/02/2026",
+      "status": "SUCCESS"
+     },
+     "issued_to": "APP00002"
+    },
+    "TXN527555329120": {
+     "fields": {
+      "transaction_id": "TXN527555329120",
+      "institution_name": "Jnana Morar Institute of Technology and Management, Thrissur",
+      "aicte_id": "1-9245910816",
+      "amount": "Rs. 1,10,000",
+      "payment_date": "09-02-2026",
+      "status": "SUCCESS"
+     },
+     "issued_to": "APP00007"
+    },
+    "TXN937920215829": {
+     "fields": {
+      "transaction_id": "TXN937920215829",
+      "institution_name": "Shri Rastogi College of Engineering and Technology, Kanpur",
+      "aicte_id": "1-9232675398",
+      "amount": "Rs. 95,000",
+      "payment_date": "04/01/2026",
+      "status": "SUCCESS"
+     },
+     "issued_to": "APP00018"
+    },
+    "TXN123244477938": {
+     "fields": {
+      "transaction_id": "TXN123244477938",
+      "institution_name": "Sarada Mutti College of Engineering and Technology, Prayagraj",
+      "aicte_id": "1-7430251024",
+      "amount": "Rs. 1,10,000",
+      "payment_date": "31/12/2025",
+      "status": "SUCCESS"
+     },
+     "issued_to": "APP00029"
+    },
+    "TXN190084058922": {
+     "fields": {
+      "transaction_id": "TXN190084058922",
+      "institution_name": "Prerana Issac College of Engineering, Kozhikode",
+      "aicte_id": "1-2729528555",
+      "amount": "Rs. 1,10,000",
+      "payment_date": "18 February 2026",
+      "status": "SUCCESS"
+     },
+     "issued_to": "APP00062"
+    },
+    "TXN379977846631": {
+     "fields": {
+      "transaction_id": "TXN379977846631",
+      "institution_name": "Sahyadri Ramanathan College of Engineering and Technology, Mangaluru",
+      "aicte_id": "1-4846924938",
+      "amount": "Rs. 1,10,000",
+      "payment_date": "07-01-2026",
+      "status": "SUCCESS"
+     },
+     "issued_to": "APP00066"
+    },
+    "TXN613890854095": {
+     "fields": {
+      "transaction_id": "TXN613890854095",
+      "institution_name": "Kalpana Srinivas Institute of Engineering and Technology, Sambalpur",
+      "aicte_id": "1-9327030569",
+      "amount": "Rs. 95,000",
+      "payment_date": "19/03/2026",
+      "status": "SUCCESS"
+     },
+     "issued_to": "APP00035"
+    },
+    "TXN914830088266": {
+     "fields": {
+      "transaction_id": "TXN914830088266",
+      "institution_name": "Sant Upadhyay Institute of Technology, Ahmedabad",
+      "aicte_id": "1-7681007877",
+      "amount": "Rs. 1,10,000",
+      "payment_date": "15-01-2026",
+      "status": "SUCCESS"
+     },
+     "issued_to": "APP00063"
+    }
+   },
+   "coverage": {
+    "online": "*"
+   },
+   "name": "AICTE payment gateway ledger"
+  },
+  "aicte_approvals": {
+   "entries": {
+    "F.No.Western/7-1863405613/2025/EOA": {
+     "fields": {
+      "ref_no": "F.No.Western/7-1863405613/2025/EOA",
+      "letter_date": "16-06-2025",
+      "institution_name": "Kalpana Agate Institute of Technology and Management, Pune",
+      "aicte_id": "1-6881081398"
+     },
+     "issued_to": "APP00001"
+    },
+    "F.No.Southern/4-0081377229/2025/EOA": {
+     "fields": {
+      "ref_no": "F.No.Southern/4-0081377229/2025/EOA",
+      "letter_date": "11/06/2025",
+      "institution_name": "Vivekananda Dube Institute of Technology and Management, Madurai",
+      "aicte_id": "1-4697628658"
+     },
+     "issued_to": "APP00017"
+    },
+    "F.No.South-West/8-6651478379/2025/EOA": {
+     "fields": {
+      "ref_no": "F.No.South-West/8-6651478379/2025/EOA",
+      "letter_date": "28 May 2025",
+      "institution_name": "Pragati Bhatnagar Institute of Technology and Management, Kochi",
+      "aicte_id": "1-6131390117"
+     },
+     "issued_to": "APP00027"
+    },
+    "F.No.Western/4-2167489298/2025/EOA": {
+     "fields": {
+      "ref_no": "F.No.Western/4-2167489298/2025/EOA",
+      "letter_date": "28/07/2025",
+      "institution_name": "Siddhartha Prasad College of Engineering, Ahmedabad",
+      "aicte_id": "1-7362082776"
+     },
+     "issued_to": "APP00045"
+    },
+    "F.No.Western/9-8388284146/2025/EOA": {
+     "fields": {
+      "ref_no": "F.No.Western/9-8388284146/2025/EOA",
+      "letter_date": "19 June 2025",
+      "institution_name": "Kalpana Buch Institute of Engineering and Technology, Anand",
+      "aicte_id": "1-3791145744"
+     },
+     "issued_to": "APP00141"
+    },
+    "F.No.Eastern/3-9486628360/2025/EOA": {
+     "fields": {
+      "ref_no": "F.No.Eastern/3-9486628360/2025/EOA",
+      "letter_date": "13/05/2025",
+      "institution_name": "Sanjeevani Dani Institute of Technology, Cuttack",
+      "aicte_id": "1-5026590100"
+     },
+     "issued_to": "APP00000"
+    },
+    "F.No.South-West/5-2894298733/2025/EOA": {
+     "fields": {
+      "ref_no": "F.No.South-West/5-2894298733/2025/EOA",
+      "letter_date": "07-07-2025",
+      "institution_name": "Gyan Murthy College of Engineering and Technology, Kozhikode",
+      "aicte_id": "1-8978651095"
+     },
+     "issued_to": "APP00002"
+    },
+    "F.No.South-West/4-8468279047/2025/EOA": {
+     "fields": {
+      "ref_no": "F.No.South-West/4-8468279047/2025/EOA",
+      "letter_date": "28/06/2025",
+      "institution_name": "Jnana Morar Institute of Technology and Management, Thrissur",
+      "aicte_id": "1-9245910816"
+     },
+     "issued_to": "APP00007"
+    },
+    "F.No.Northern/7-8350564258/2025/EOA": {
+     "fields": {
+      "ref_no": "F.No.Northern/7-8350564258/2025/EOA",
+      "letter_date": "28 June 2025",
+      "institution_name": "Shri Rastogi College of Engineering and Technology, Kanpur",
+      "aicte_id": "1-9232675398"
+     },
+     "issued_to": "APP00018"
+    },
+    "F.No.Northern/9-5962427070/2025/EOA": {
+     "fields": {
+      "ref_no": "F.No.Northern/9-5962427070/2025/EOA",
+      "letter_date": "18/05/2025",
+      "institution_name": "Sarada Mutti College of Engineering and Technology, Prayagraj",
+      "aicte_id": "1-7430251024"
+     },
+     "issued_to": "APP00029"
+    },
+    "F.No.South-West/3-3510708552/2025/EOA": {
+     "fields": {
+      "ref_no": "F.No.South-West/3-3510708552/2025/EOA",
+      "letter_date": "13 June 2025",
+      "institution_name": "Prerana Issac College of Engineering, Kozhikode",
+      "aicte_id": "1-2729528555"
+     },
+     "issued_to": "APP00062"
+    },
+    "F.No.South-West/5-7416625784/2025/EOA": {
+     "fields": {
+      "ref_no": "F.No.South-West/5-7416625784/2025/EOA",
+      "letter_date": "10/05/2025",
+      "institution_name": "Sahyadri Ramanathan College of Engineering and Technology, Mangaluru",
+      "aicte_id": "1-4846924938"
+     },
+     "issued_to": "APP00066"
+    },
+    "F.No.Eastern/2-0195977511/2025/EOA": {
+     "fields": {
+      "ref_no": "F.No.Eastern/2-0195977511/2025/EOA",
+      "letter_date": "13/06/2025",
+      "institution_name": "Kalpana Srinivas Institute of Engineering and Technology, Sambalpur",
+      "aicte_id": "1-9327030569"
+     },
+     "issued_to": "APP00035"
+    }
+   },
+   "coverage": {
+    "online": "*"
+   },
+   "name": "AICTE approval letters (portal records)"
+  },
+  "nba": {
+   "entries": {
+    "NBA/ACCR/9298/2025": {
+     "fields": {
+      "certificate_no": "NBA/ACCR/9298/2025",
+      "institution_name": "Kalpana Agate Institute of Technology and Management, Pune",
+      "programmes": "B.Tech Electrical and Electronics Engineering; B.Tech Mechanical Engineering",
+      "valid_until": "30/06/2028"
+     },
+     "issued_to": "APP00001"
+    },
+    "NBA/ACCR/8056/2024": {
+     "fields": {
+      "certificate_no": "NBA/ACCR/8056/2024",
+      "institution_name": "Vivekananda Dube Institute of Technology and Management, Madurai",
+      "programmes": "B.Tech Civil Engineering; B.Tech Electrical and Electronics Engineering; B.Tech Mechanical Engineering",
+      "valid_until": "30/06/2028"
+     },
+     "issued_to": "APP00017"
+    },
+    "NBA/ACCR/6788/2023": {
+     "fields": {
+      "certificate_no": "NBA/ACCR/6788/2023",
+      "institution_name": "Pragati Bhatnagar Institute of Technology and Management, Kochi",
+      "programmes": "B.Tech Artificial Intelligence and Data Science",
+      "valid_until": "30/06/2029"
+     },
+     "issued_to": "APP00027"
+    },
+    "NBA/ACCR/3638/2023": {
+     "fields": {
+      "certificate_no": "NBA/ACCR/3638/2023",
+      "institution_name": "Siddhartha Prasad College of Engineering, Ahmedabad",
+      "programmes": "B.Tech Electrical and Electronics Engineering; B.Tech Computer Science and Engineering; B.Tech Electronics and Communication Engineering",
+      "valid_until": "30 June 2029"
+     },
+     "issued_to": "APP00045"
+    },
+    "NBA/ACCR/6803/2025": {
+     "fields": {
+      "certificate_no": "NBA/ACCR/6803/2025",
+      "institution_name": "Kalpana Buch Institute of Engineering and Technology, Anand",
+      "programmes": "B.Tech Mechanical Engineering; B.Tech Civil Engineering",
+      "valid_until": "30/06/2029"
+     },
+     "issued_to": "APP00141"
+    },
+    "NBA/ACCR/7496/2024": {
+     "fields": {
+      "certificate_no": "NBA/ACCR/7496/2024",
+      "institution_name": "Sanjeevani Dani Institute of Technology",
+      "programmes": "B.Tech Electrical and Electronics Engineering; B.Tech Artificial Intelligence and Data Science",
+      "valid_until": "30/06/2027"
+     },
+     "issued_to": "APP00000"
+    },
+    "NBA/ACCR/9565/2025": {
+     "fields": {
+      "certificate_no": "NBA/ACCR/9565/2025",
+      "institution_name": "Gyan Murthy College of Engineering and Technology, Kozhikode",
+      "programmes": "B.Tech Mechanical Engineering; B.Tech Civil Engineering",
+      "valid_until": "30/06/2028"
+     },
+     "issued_to": "APP00002"
+    },
+    "NBA/ACCR/4625/2024": {
+     "fields": {
+      "certificate_no": "NBA/ACCR/4625/2024",
+      "institution_name": "Jnana Morar Institute of Technology and Management, Thrissur",
+      "programmes": "B.Tech Artificial Intelligence and Data Science; B.Tech Electrical and Electronics Engineering",
+      "valid_until": "30-06-2028"
+     },
+     "issued_to": "APP00007"
+    },
+    "NBA/ACCR/6696/2023": {
+     "fields": {
+      "certificate_no": "NBA/ACCR/6696/2023",
+      "institution_name": "Shri Rastogi College of Engineering and Technology, Kanpur",
+      "programmes": "B.Tech Computer Science and Engineering; B.Tech Electronics and Communication Engineering",
+      "valid_until": "30/06/2025"
+     },
+     "issued_to": "APP00018"
+    },
+    "NBA/ACCR/9213/2025": {
+     "fields": {
+      "certificate_no": "NBA/ACCR/9213/2025",
+      "institution_name": "Sarada Mutti College of Engineering and Technology, Prayagraj",
+      "programmes": "B.Tech Mechanical Engineering; B.Tech Electronics and Communication Engineering; B.Tech Computer Science and Engineering",
+      "valid_until": "30 June 2029"
+     },
+     "issued_to": "APP00029"
+    },
+    "NBA/ACCR/1143/2024": {
+     "fields": {
+      "certificate_no": "NBA/ACCR/1143/2024",
+      "institution_name": "Prerana Issac College of Engineering, Kozhikode",
+      "programmes": "B.Tech Mechanical Engineering; B.Tech Electronics and Communication Engineering",
+      "valid_until": "30-06-2027"
+     },
+     "issued_to": "APP00062"
+    },
+    "NBA/ACCR/4869/2025": {
+     "fields": {
+      "certificate_no": "NBA/ACCR/4869/2025",
+      "institution_name": "Kalpana Srinivas Institute of Engineering and Technology, Sambalpur",
+      "programmes": "B.Tech Mechanical Engineering",
+      "valid_until": "30-06-2028"
+     },
+     "issued_to": "APP00035"
+    },
+    "NBA/ACCR/6638/2024": {
+     "fields": {
+      "certificate_no": "NBA/ACCR/6638/2024",
+      "institution_name": "Sant Upadhyay Institute of Technology, Ahmedabad",
+      "programmes": "B.Tech Electrical and Electronics Engineering; B.Tech Computer Science and Engineering; B.Tech Mechanical Engineering",
+      "valid_until": "30-06-2028"
+     },
+     "issued_to": "APP00063"
+    }
+   },
+   "coverage": {
+    "online": "*"
+   },
+   "name": "NBA accreditation register"
+  },
+  "fire_noc": {
+   "entries": {
+    "FRS/MH/2025/65966": {
+     "fields": {
+      "noc_no": "FRS/MH/2025/65966",
+      "institution_name": "Kalpana Agate Institute of Technology and Management, Pune",
+      "address": "224, Buch, Pune, Maharashtra - 572207",
+      "issue_date": "19-11-2025",
+      "valid_until": "22-04-2027",
+      "authority": "Directorate of Fire and Rescue Services, Maharashtra"
+     },
+     "issued_to": "APP00001"
+    },
+    "FRS/TN/2024/61643": {
+     "fields": {
+      "noc_no": "FRS/TN/2024/61643",
+      "institution_name": "Vivekananda Dube Institute of Technology and Management, Madurai",
+      "address": "428, Venkatesh, Madurai, Tamil Nadu - 555704",
+      "issue_date": "31-12-2024",
+      "valid_until": "30-04-2028",
+      "authority": "Directorate of Fire and Rescue Services, Tamil Nadu"
+     },
+     "issued_to": "APP00017"
+    },
+    "FRS/KL/2025/66977": {
+     "fields": {
+      "noc_no": "FRS/KL/2025/66977",
+      "institution_name": "Pragati Bhatnagar Institute of Technology and Management, Kochi",
+      "address": "55, Sabharwal Nagar, Kochi, Kerala - 539647",
+      "issue_date": "12 January 2025",
+      "valid_until": "03 February 2027",
+      "authority": "Directorate of Fire and Rescue Services, Kerala"
+     },
+     "issued_to": "APP00027"
+    },
+    "FRS/GJ/2024/48137": {
+     "fields": {
+      "noc_no": "FRS/GJ/2024/48137",
+      "institution_name": "Siddhartha Prasad College of Engineering, Ahmedabad",
+      "address": "100, Pillai Zila, Ahmedabad, Gujarat - 682903",
+      "issue_date": "08/11/2024",
+      "valid_until": "12/09/2026",
+      "authority": "Directorate of Fire and Rescue Services, Gujarat"
+     },
+     "issued_to": "APP00045"
+    },
+    "FRS/GJ/2025/17545": {
+     "fields": {
+      "noc_no": "FRS/GJ/2025/17545",
+      "institution_name": "Kalpana Buch Institute of Engineering and Technology, Anand",
+      "address": "446, Sant Nagar, Anand, Gujarat - 516204",
+      "issue_date": "03 November 2025",
+      "valid_until": "31 May 2028",
+      "authority": "Directorate of Fire and Rescue Services, Gujarat"
+     },
+     "issued_to": "APP00141"
+    },
+    "FRS/OD/2025/06866": {
+     "fields": {
+      "noc_no": "FRS/OD/2025/06866",
+      "institution_name": "Sanjeevani Dani Institute of Technology, Cuttack",
+      "address": "243, Thakkar Path, Cuttack, Odisha - 568795",
+      "issue_date": "04-05-2025",
+      "valid_until": "28-05-2027",
+      "authority": "Directorate of Fire and Rescue Services, Odisha"
+     },
+     "issued_to": "APP00000"
+    },
+    "FRS/KL/2025/49238": {
+     "fields": {
+      "noc_no": "FRS/KL/2025/49238",
+      "institution_name": "Gyan Murthy College of Engineering and Technology, Kozhikode",
+      "address": "129, Ranganathan Ganj, Kozhikode, Kerala - 779996",
+      "issue_date": "08/02/2025",
+      "valid_until": "20/06/2028",
+      "authority": "Directorate of Fire and Rescue Services, Kerala"
+     },
+     "issued_to": "APP00002"
+    },
+    "FRS/KL/2025/24769": {
+     "fields": {
+      "noc_no": "FRS/KL/2025/24769",
+      "institution_name": "Jnana Morar Institute of Technology and Management, Thrissur",
+      "address": "102, Thaker Circle, Thrissur, Kerala - 793208",
+      "issue_date": "18 February 2025",
+      "valid_until": "01 October 2026",
+      "authority": "Directorate of Fire and Rescue Services, Kerala"
+     },
+     "issued_to": "APP00007"
+    },
+    "FRS/UP/2025/21454": {
+     "fields": {
+      "noc_no": "FRS/UP/2025/21454",
+      "institution_name": "Shri Rastogi College of Engineering and Technology, Kanpur",
+      "address": "88, Hayre Nagar, Kanpur, Uttar Pradesh - 770386",
+      "issue_date": "22-10-2025",
+      "valid_until": "27-05-2028",
+      "authority": "Directorate of Fire and Rescue Services, Uttar Pradesh"
+     },
+     "issued_to": "APP00018"
+    },
+    "FRS/UP/2025/77177": {
+     "fields": {
+      "noc_no": "FRS/UP/2025/77177",
+      "institution_name": "Sarada Mutti College of Engineering and Technology, Prayagraj",
+      "address": "263, Kale, Prayagraj, Uttar Pradesh - 514653",
+      "issue_date": "21/09/2025",
+      "valid_until": "17/07/2027",
+      "authority": "Directorate of Fire and Rescue Services, Uttar Pradesh"
+     },
+     "issued_to": "APP00029"
+    },
+    "FRS/KL/2023/75729": {
+     "fields": {
+      "noc_no": "FRS/KL/2023/75729",
+      "institution_name": "Prerana Issac College of Engineering, Kozhikode",
+      "address": "20, Mahal Path, Kozhikode, Kerala - 583819",
+      "issue_date": "16-06-2023",
+      "valid_until": "23-01-2025",
+      "authority": "Directorate of Fire and Rescue Services, Kerala"
+     },
+     "issued_to": "APP00062"
+    },
+    "FRS/KA/2025/62123": {
+     "fields": {
+      "noc_no": "FRS/KA/2025/62123",
+      "institution_name": "Sahyadri Ramanathan College of Engineering and Technology, Mangaluru",
+      "address": "273, Zacharia Circle, Mangaluru, Karnataka - 558059",
+      "issue_date": "04 April 2025",
+      "valid_until": "09 October 2027",
+      "authority": "Directorate of Fire and Rescue Services, Karnataka"
+     },
+     "issued_to": "APP00066"
+    },
+    "FRS/OD/2025/76917": {
+     "fields": {
+      "noc_no": "FRS/OD/2025/76917",
+      "institution_name": "Kalpana Srinivas Institute of Engineering and Technology, Sambalpur",
+      "address": "362, Lalla Marg, Sambalpur, Odisha - 749771",
+      "issue_date": "26-10-2025",
+      "valid_until": "30-10-2026",
+      "authority": "Directorate of Fire and Rescue Services, Odisha"
+     },
+     "issued_to": "APP00035"
+    },
+    "FRS/GJ/2025/56609": {
+     "fields": {
+      "noc_no": "FRS/GJ/2025/56609",
+      "institution_name": "Sant Upadhyay Institute of Technology, Ahmedabad",
+      "address": "440, Nair Circle, Ahmedabad, Gujarat - 754623",
+      "issue_date": "08/05/2025",
+      "valid_until": "20/06/2028",
+      "authority": "Directorate of Fire and Rescue Services, Gujarat"
+     },
+     "issued_to": "APP00063"
+    }
+   },
+   "coverage": {
+    "online": [
+     "Kerala",
+     "Tamil Nadu",
+     "Karnataka",
+     "Maharashtra",
+     "Gujarat"
+    ]
+   },
+   "name": "State Fire and Emergency Services NOC register"
+  },
+  "sub_registrar": {
+   "entries": {
+    "6294/2015": {
+     "fields": {
+      "lessor_name": "Advay Swaminathan",
+      "lessee_name": "Agate Educational Society",
+      "institution_name": "Kalpana Agate Institute of Technology and Management, Pune",
+      "survey_no": "783/6A",
+      "land_area_acres": "18.33",
+      "lease_start": "02 September 2015",
+      "lease_period_years": "99",
+      "registration_no": "6294/2015"
+     },
+     "issued_to": "APP00001"
+    },
+    "3998/1999": {
+     "fields": {
+      "lessor_name": "Viraj Boase",
+      "lessee_name": "Dube Educational Trust",
+      "institution_name": "Vivekananda Dube Institute of Technology and Management, Madurai",
+      "survey_no": "880/4B",
+      "land_area_acres": "19.24",
+      "lease_start": "24-05-1999",
+      "lease_period_years": "99",
+      "registration_no": "3998/1999"
+     },
+     "issued_to": "APP00017"
+    },
+    "6275/2007": {
+     "fields": {
+      "lessor_name": "Gopal Keer",
+      "lessee_name": "Bhatnagar Educational Society",
+      "institution_name": "Pragati Bhatnagar Institute of Technology and Management, Kochi",
+      "survey_no": "299/8B",
+      "land_area_acres": "6.46",
+      "lease_start": "25/04/2007",
+      "lease_period_years": "30",
+      "registration_no": "6275/2007"
+     },
+     "issued_to": "APP00027"
+    },
+    "4510/2015": {
+     "fields": {
+      "lessor_name": "Yuvraj Date",
+      "lessee_name": "Prasad Educational Society",
+      "institution_name": "Siddhartha Prasad College of Engineering, Ahmedabad",
+      "survey_no": "870/3B",
+      "land_area_acres": "28.23",
+      "lease_start": "17/02/2015",
+      "lease_period_years": "99",
+      "registration_no": "4510/2015"
+     },
+     "issued_to": "APP00045"
+    },
+    "2703/2013": {
+     "fields": {
+      "lessor_name": "Madhav Solanki",
+      "lessee_name": "Buch Educational Trust",
+      "institution_name": "Kalpana Buch Institute of Engineering and Technology, Anand",
+      "survey_no": "973/2B",
+      "land_area_acres": "7.04",
+      "lease_start": "18-08-2013",
+      "lease_period_years": "50",
+      "registration_no": "2703/2013"
+     },
+     "issued_to": "APP00141"
+    },
+    "3623/2017": {
+     "fields": {
+      "lessor_name": "Ridhi Khatri",
+      "lessee_name": "Dani Educational Trust",
+      "institution_name": "Sanjeevani Dani Institute of Technology, Cuttack",
+      "survey_no": "991/9B",
+      "land_area_acres": "7.11",
+      "lease_start": "19/10/2017",
+      "lease_period_years": "99",
+      "registration_no": "3623/2017"
+     },
+     "issued_to": "APP00000"
+    },
+    "7218/2002": {
+     "fields": {
+      "lessor_name": "Yochana Bose",
+      "lessee_name": "Murthy Educational Trust",
+      "institution_name": "Gyan Murthy College of Engineering and Technology, Kozhikode",
+      "survey_no": "677/3C",
+      "land_area_acres": "15.64",
+      "lease_start": "28-09-2002",
+      "lease_period_years": "50",
+      "registration_no": "7218/2002"
+     },
+     "issued_to": "APP00002"
+    },
+    "9994/2014": {
+     "fields": {
+      "lessor_name": "Chaitaly Luthra",
+      "lessee_name": "Morar Educational Trust",
+      "institution_name": "Jnana Morar Institute of Technology and Management, Thrissur",
+      "survey_no": "751/5B",
+      "land_area_acres": "13.77",
+      "lease_start": "04 February 2014",
+      "lease_period_years": "50",
+      "registration_no": "9994/2014"
+     },
+     "issued_to": "APP00007"
+    },
+    "2419/2010": {
+     "fields": {
+      "lessor_name": "Ranbir Sule",
+      "lessee_name": "Rastogi Educational Society",
+      "institution_name": "Shri Rastogi College of Engineering and Technology, Kanpur",
+      "survey_no": "909/4C",
+      "land_area_acres": "6.56",
+      "lease_start": "09/12/2010",
+      "lease_period_years": "30",
+      "registration_no": "2419/2010"
+     },
+     "issued_to": "APP00018"
+    },
+    "4210/2014": {
+     "fields": {
+      "lessor_name": "Yachana Krishnamurthy",
+      "lessee_name": "Mutti Educational Society",
+      "institution_name": "Sarada Mutti College of Engineering and Technology, Prayagraj",
+      "survey_no": "108/8C",
+      "land_area_acres": "7.50",
+      "lease_start": "03-10-1997",
+      "lease_period_years": "30",
+      "registration_no": "4210/2014"
+     },
+     "issued_to": "APP00029"
+    },
+    "1882/2001": {
+     "fields": {
+      "lessor_name": "Nirja Bhattacharyya",
+      "lessee_name": "Issac Educational Trust",
+      "institution_name": "Prerana Issac College of Engineering, Kozhikode",
+      "survey_no": "264/9B",
+      "land_area_acres": "15.08",
+      "lease_start": "02-03-2001",
+      "lease_period_years": "30",
+      "registration_no": "1882/2001"
+     },
+     "issued_to": "APP00062"
+    },
+    "4906/2013": {
+     "fields": {
+      "lessor_name": "Karan Bhat",
+      "lessee_name": "Ramanathan Educational Society",
+      "institution_name": "Sahyadri Ramanathan College of Engineering and Technology, Mangaluru",
+      "survey_no": "201/5B",
+      "land_area_acres": "20.21",
+      "lease_start": "01 February 2013",
+      "lease_period_years": "50",
+      "registration_no": "4906/2013"
+     },
+     "issued_to": "APP00066"
+    },
+    "2917/2003": {
+     "fields": {
+      "lessor_name": "Baljiwan Varkey",
+      "lessee_name": "Srinivas Educational Trust",
+      "institution_name": "Kalpana Srinivas Institute of Engineering and Technology, Sambalpur",
+      "survey_no": "285/7C",
+      "land_area_acres": "20.00",
+      "lease_start": "21 April 2003",
+      "lease_period_years": "30",
+      "registration_no": "2917/2003"
+     },
+     "issued_to": "APP00035"
+    },
+    "7127/2003": {
+     "fields": {
+      "lessor_name": "Pratyush Brahmbhatt",
+      "lessee_name": "Upadhyay Educational Trust",
+      "institution_name": "Sant Upadhyay Institute of Technology, Ahmedabad",
+      "survey_no": "189/8A",
+      "land_area_acres": "21.63",
+      "lease_start": "25 March 2003",
+      "lease_period_years": "99",
+      "registration_no": "7127/2003"
+     },
+     "issued_to": "APP00063"
+    }
+   },
+   "coverage": {
+    "online": [
+     "Kerala",
+     "Tamil Nadu",
+     "Karnataka",
+     "Maharashtra",
+     "Gujarat"
+    ],
+    "request": [
+     "Odisha",
+     "Uttar Pradesh"
+    ]
+   },
+   "name": "Sub-Registrar lease register"
+  }
+ }
+}

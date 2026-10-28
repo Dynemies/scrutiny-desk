@@ -4,16 +4,12 @@ SIH26261 - application check engine
 
 Runs every check on one application and returns findings with evidence.
 
-Real now:      checklist, expiry, lease vs longest course, intake vs approval,
-               institution name / AICTE ID vs records, digital signature,
-               changes made after signing (with the changed region),
-               re-used pages across applications (perceptual hash).
-Plug-in slots: READER   - reads document type and fields from a page.
-                          Until the tagging model is trained, the stand-in
-                          reader returns the generator's printed-field labels.
-               TAMPER   - pixel tamper heatmap. Reads precomputed maps from
-                          <data>/tamper_maps/<APP>/<doc>.png (+ .json score)
-                          once the tamper model has produced them.
+Checks:  checklist per application category, OCR reading of every page (document type + fields),
+         expiry, lease vs longest course, intake vs approval, institution name / AICTE ID vs records,
+         verification with the issuing authority (simulated registers in this prototype),
+         digital signature, changes made after signing (with the changed region),
+         re-used pages across applications (perceptual hash), pixel tampering (tamper model heatmaps).
+Rules:   rules/aicte_eoa.json (checklists, labels, issuers, thresholds); edit it, not this code.
 """
 import os
 if os.environ.get("TZ") == "Asia/Calcutta":
@@ -28,6 +24,9 @@ import re
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
+import reader as rd
+import verify
+
 import cv2
 import numpy as np
 import pymupdf
@@ -35,7 +34,15 @@ import pymupdf
 logging.getLogger("pyhanko").setLevel(logging.CRITICAL)
 logging.getLogger("pyhanko_certvalidator").setLevel(logging.CRITICAL)
 
-REQUIRED = ["affidavit", "lease_deed", "fire_noc", "nba_certificate", "eoa_letter", "ter_receipt"]
+RULES = rd.load_rules()
+CATEGORY = "Extension of Approval"
+REQUIRED = RULES["categories"][CATEGORY]["required_documents"]
+
+
+def rule(name):
+    return RULES["rules"][name]["value"]
+
+
 DOC_NAMES = {
     "affidavit": "Affidavit on e-stamp paper",
     "lease_deed": "Lease deed",
@@ -57,10 +64,11 @@ FIELD_NAMES = {
 }
 # severity order, worst first; labels follow the problem statement
 STATUS_ORDER = ["missing", "mismatch_detected", "expired", "deficiency", "manual_review_required",
-                "verification_pending", "verified"]
+                "source_unavailable", "verification_pending", "verified"]
 STATUS_LABEL = {
     "missing": "Missing", "mismatch_detected": "Mismatch", "expired": "Expired", "deficiency": "Deficiency",
-    "manual_review_required": "Needs review", "verification_pending": "Pending", "verified": "Verified",
+    "manual_review_required": "Needs review", "source_unavailable": "Source unavailable",
+    "verification_pending": "Pending", "verified": "Verified",
 }
 DATE_FORMATS = ["%d/%m/%Y", "%d-%m-%Y", "%d %B %Y"]
 _pool = ThreadPoolExecutor(max_workers=1)   # pyHanko runs its own event loop; keep it off the caller's
@@ -73,12 +81,18 @@ def worst(statuses):
 
 def parse_date(s):
     s = (s or "").strip()
+    s = re.sub(r"0(?=ct)", "O", s)                                      # OCR reads the O of "October" as a zero
+    s = re.sub(r"(?<=\d)(?=[A-Za-z])|(?<=[A-Za-z])(?=\d)", " ", s)     # OCR drops spaces: "04February2014"
+    s = re.sub(r"\s+", " ", s)
     for f in DATE_FORMATS:
         try:
             return dt.datetime.strptime(s, f).date()
         except ValueError:
             pass
     return None
+
+
+edits = rd.edits
 
 
 def norm(s):
@@ -129,7 +143,24 @@ def stand_in_reader(store, app_id, doc):
             "boxes": info.get("field_quads_px", {}), "reader": "stand-in (generator labels)"}
 
 
-READER = stand_in_reader
+def ocr_reader(store, app_id, doc):
+    """OCR every line on the page (cached for the demo pages), then sort the page and read its fields."""
+    cache = store.root / "ocr" / app_id / f"{doc}.json"
+    if cache.exists():
+        lines = json.loads(cache.read_text())
+    else:
+        from tamper.ocr import ocr_lines
+        lines = ocr_lines(store.page_path(app_id, doc).read_bytes())
+    r = rd.read_fields(lines, RULES)
+    if r["doc_type"] != doc:                       # read it as the document it was uploaded as, to report what is there
+        r2 = rd.read_fields(lines, RULES, doc_type=doc)
+        r = {**r2, "doc_type": r["doc_type"], "boxes": {}}
+    return {"doc_type": r["doc_type"], "fields": r["fields"], "boxes": r["boxes"], "conf": r.get("conf", {}),
+            "second_read": r.get("second_read", {}),
+            "reader": "OCR (PP-OCRv3, RapidOCR)", "lines": len(lines)}
+
+
+READER = ocr_reader
 
 
 def tamper_map(store, app_id, doc):
@@ -182,7 +213,7 @@ def find_reuse(store, page_path, fingerprint, earlier_than=None):
             continue
         if other["sha"] == fingerprint["sha"]:
             return key
-        if hamming(other["phash"], fingerprint["phash"]) <= 10:
+        if hamming(other["phash"], fingerprint["phash"]) <= rule("reuse_hamming_max"):
             me = _small_gray(page_path) if me is None else me
             o_app, o_doc = key.split("/")
             if float(np.abs(me - _small_gray(store.page_path(o_app, o_doc))).mean()) < 3.0:
@@ -275,14 +306,40 @@ def check_application(store, app_id):
             continue
         read = READER(store, app_id, d)
         fields = read["fields"]
-        log(f"Read {DOC_NAMES[d]} ({len(fields)} fields, reader: {read['reader']})")
+        spec = RULES["documents"][d]
+        log(f"Read {DOC_NAMES[d]} by {read['reader']}: {read.get('lines', 0)} text lines, {len(fields)} of {len(spec['labels'])} fields")
+        # is it the document it claims to be?
+        if read["doc_type"] != d:
+            got = RULES["documents"].get(read["doc_type"] or "", {}).get("name", "an unrecognised document")
+            f.append({"status": "manual_review_required", "check": "Document type",
+                      "text": f"Uploaded as {DOC_NAMES[d]}, but the page reads as {got}."})
+        # completeness: every field the document should carry
+        for k, lab in spec["labels"].items():
+            if k not in fields:
+                f.append({"status": "manual_review_required", "check": "Reading", "field": k,
+                          "text": f"{lab} could not be found on the page."})
+        # fields read with low confidence go to a person and are not used as facts
+        unsure = {k for k, c in read.get("conf", {}).items() if c < rule("ocr_min_confidence")}
+        for k in sorted(unsure):
+            alt = read.get("second_read", {}).get(k)
+            f.append({"status": "manual_review_required", "check": "Reading", "field": k,
+                      "text": f"{spec['labels'].get(k, k)} is unclear: read as \u201c{fields[k]}\u201d"
+                              + (f", and as \u201c{alt}\u201d on a second read" if alt else "")
+                              + f" (confidence {read['conf'][k]:.0%}). Please check it on the page."})
+        shown_fields = fields
+        fields = {k: v for k, v in fields.items() if k not in unsure}
 
         # identity against records
-        if rec and "institution_name" in fields and norm(fields["institution_name"]) != norm(rec.get("name")):
-            f.append({"status": "mismatch_detected", "check": "Records", "field": "institution_name",
-                      "text": "Institution name on the document differs from the AICTE record.",
+        if rec and "institution_name" in fields and rd.squash(fields["institution_name"]) != rd.squash(rec.get("name")):
+            gap = edits(rd.squash(fields["institution_name"]), rd.squash(rec.get("name")))
+            near = gap <= 2      # one or two letters: an OCR slip ("Ujain") as likely as a change, so a person decides
+            f.append({"status": "manual_review_required" if near else "mismatch_detected", "check": "Records",
+                      "field": "institution_name",
+                      "text": (f"Institution name is a near match to the AICTE record ({gap} letter{'s differ' if gap > 1 else ' differs'}): "
+                               "a reading slip or a small change. Check it on the page.") if near
+                      else "Institution name on the document differs from the AICTE record.",
                       "doc_value": fields["institution_name"], "record_value": rec["name"]})
-        if rec and "aicte_id" in fields and norm(fields["aicte_id"]) != norm(rec.get("institution_id")):
+        if rec and "aicte_id" in fields and rd.fold(fields["aicte_id"]) != rd.fold(rec.get("institution_id")):
             f.append({"status": "mismatch_detected", "check": "Records", "field": "aicte_id",
                       "text": "AICTE ID on the document differs from the record.",
                       "doc_value": fields["aicte_id"], "record_value": rec["institution_id"]})
@@ -297,11 +354,11 @@ def check_application(store, app_id):
             if v and v < app_date:
                 f.append({"status": "expired", "check": "Validity", "field": "valid_until",
                           "text": f"Expired on {v:%d %b %Y}, before the application date {app_date:%d %b %Y}."})
-            elif v and (v - app_date).days < 120:
+            elif v and (v - app_date).days < rule("renewal_reminder_days"):
                 f.append({"status": "verified", "check": "Validity", "field": "valid_until",
                           "text": f"Valid, but expires on {v:%d %b %Y}; renewal reminder set.", "note": True})
         # lease against the longest course
-        if d == "lease_deed":
+        if d == "lease_deed" and rule("lease_covers_longest_course"):
             s = parse_date(fields.get("lease_start"))
             try:
                 yrs = int(fields.get("lease_period_years", ""))
@@ -317,7 +374,7 @@ def check_application(store, app_id):
         sig = signature_check(store.pdf_path(app_id, d), store.ca)
         log(f"Signature on {DOC_NAMES[d]}: {sig['state'].replace('_', ' ')}")
         region = None
-        if sig["state"] == "unsigned":
+        if sig["state"] == "unsigned" and rule("signature_required"):
             f.append({"status": "manual_review_required", "check": "Signature",
                       "text": "No digital signature. Annexure-2 documents must be uploaded DSC-signed."})
         elif sig["state"] == "modified_after_signing":
@@ -327,6 +384,11 @@ def check_application(store, app_id):
         elif sig["state"] == "invalid":
             f.append({"status": "manual_review_required", "check": "Signature",
                       "text": "Signature does not verify against the signed content."})
+        # verification with the issuing authority
+        ver, vf = verify.verify(spec, fields, rec.get("state"), parse_date)
+        log(f"Asked {ver['source']} about {ver['key'] or 'unreadable reference'}: {STATUS_LABEL.get(ver['result'], ver['result'])}")
+        if vf:
+            f.append(vf)
         # re-used page
         me = hashes.get(f"{app_id}/{d}")
         if me:
@@ -342,11 +404,12 @@ def check_application(store, app_id):
         log(f"Tamper check on {DOC_NAMES[d]}: {tamper_text(tm)}")
 
         status = worst([x["status"] for x in f if not x.get("note")])
-        docs[d] = {"status": status, "findings": f, "fields": fields, "boxes": read["boxes"],
-                   "signature": sig, "changed_region": region, "tamper": tm, "reader": read["reader"]}
+        docs[d] = {"status": status, "findings": f, "fields": shown_fields, "boxes": read["boxes"], "conf": read.get("conf", {}),
+                   "signature": sig, "changed_region": region, "tamper": tm, "reader": read["reader"],
+                   "doc_type_read": read["doc_type"], "verification": ver}
 
     # application-level: intake
-    for prog, n in form.get("requested_intake", {}).items():
+    for prog, n in (form.get("requested_intake", {}) if rule("intake_within_approval") else {}).items():
         a = approved.get(prog)
         if a is not None and n > a:
             app_findings.append({"status": "deficiency", "check": "Intake",

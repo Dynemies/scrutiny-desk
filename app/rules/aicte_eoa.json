@@ -1,0 +1,190 @@
+{
+ "_about": "Checklists and rules the desk applies. Edit this file to change them; no code changes are needed. All values here are for the synthetic prototype and must be filled from the Approval Process Handbook in force before real use.",
+ "categories": {
+  "Extension of Approval": {
+   "required_documents": [
+    "affidavit",
+    "lease_deed",
+    "fire_noc",
+    "nba_certificate",
+    "eoa_letter",
+    "ter_receipt"
+   ],
+   "handbook_ref": "APH 2024-27, Extension of Approval checklist"
+  }
+ },
+ "rules": {
+  "renewal_reminder_days": {
+   "value": 120,
+   "label": "Remind the institution when a certificate expires within this many days of the application"
+  },
+  "lease_covers_longest_course": {
+   "value": true,
+   "label": "Lease must run at least as long as the longest course (APH cl. 2.1(e))"
+  },
+  "intake_within_approval": {
+   "value": true,
+   "label": "Requested intake may not exceed the approved intake"
+  },
+  "signature_required": {
+   "value": true,
+   "label": "Uploaded documents must carry a valid digital signature (Annexure-2)"
+  },
+  "tamper_cutoff_px": {
+   "value": 143,
+   "label": "Tamper AI flags a page when the largest marked area reaches this many pixels"
+  },
+  "reuse_hamming_max": {
+   "value": 10,
+   "label": "Two pages count as the same page when their fingerprints differ in at most this many bits"
+  },
+  "ocr_min_confidence": {
+   "value": 0.7,
+   "label": "A field read by OCR below this confidence is sent for a human check instead of being used"
+  }
+ },
+ "documents": {
+  "affidavit": {
+   "name": "Affidavit on e-stamp paper",
+   "titles": [
+    "AFFIDAVIT"
+   ],
+   "labels": {
+    "estamp_cert_no": "Certificate No.",
+    "estamp_issue_date": "Certificate Issued Date",
+    "stamp_duty": "Stamp Duty Amount",
+    "institution_name": "Name of the Institution",
+    "aicte_id": "AICTE Permanent ID",
+    "deponent_name": "Deponent",
+    "notary_reg_no": "Notary Registration No.",
+    "sworn_date": "Sworn on"
+   },
+   "issuer": {
+    "register": "estamp",
+    "name": "e-Stamp register (Stock Holding Corporation)",
+    "key": "estamp_cert_no",
+    "compare": [
+     "estamp_issue_date",
+     "stamp_duty"
+    ]
+   }
+  },
+  "lease_deed": {
+   "name": "Lease deed",
+   "titles": [
+    "REGISTERED LEASE DEED"
+   ],
+   "labels": {
+    "lessor_name": "Lessor",
+    "lessee_name": "Lessee",
+    "institution_name": "Name of the Institution",
+    "survey_no": "Survey No.",
+    "land_area_acres": "Land Area (acres)",
+    "lease_start": "Lease Commencement",
+    "lease_period_years": "Lease Period (years)",
+    "registration_no": "Registration No."
+   },
+   "issuer": {
+    "register": "sub_registrar",
+    "name": "Sub-Registrar lease register",
+    "key": "registration_no",
+    "compare": [
+     "lessee_name",
+     "lease_start",
+     "lease_period_years"
+    ]
+   }
+  },
+  "fire_noc": {
+   "name": "Fire safety NOC",
+   "titles": [
+    "FIRE SAFETY NO OBJECTION CERTIFICATE"
+   ],
+   "labels": {
+    "noc_no": "NOC No.",
+    "institution_name": "Name of the Institution",
+    "address": "Address of Premises",
+    "issue_date": "Date of Issue",
+    "valid_until": "Valid Until"
+   },
+   "issuer": {
+    "register": "fire_noc",
+    "name": "State Fire and Emergency Services NOC register",
+    "key": "noc_no",
+    "compare": [
+     "institution_name",
+     "valid_until"
+    ]
+   },
+   "unlabelled": {
+    "authority": "line_above_title"
+   }
+  },
+  "nba_certificate": {
+   "name": "NBA accreditation",
+   "titles": [
+    "CERTIFICATE OF ACCREDITATION"
+   ],
+   "labels": {
+    "certificate_no": "Certificate No.",
+    "institution_name": "Name of the Institution",
+    "programmes": "Programmes Accredited",
+    "valid_until": "Valid Until"
+   },
+   "issuer": {
+    "register": "nba",
+    "name": "NBA accreditation register",
+    "key": "certificate_no",
+    "compare": [
+     "institution_name",
+     "valid_until"
+    ]
+   }
+  },
+  "eoa_letter": {
+   "name": "Previous approval letter",
+   "titles": [
+    "EXTENSION OF APPROVAL"
+   ],
+   "labels": {
+    "ref_no": "Ref. No.",
+    "letter_date": "Date",
+    "institution_name": "Name of the Institution",
+    "aicte_id": "AICTE Permanent ID"
+   },
+   "issuer": {
+    "register": "aicte_approvals",
+    "name": "AICTE approval letters (portal records)",
+    "key": "ref_no",
+    "compare": [
+     "aicte_id",
+     "letter_date"
+    ]
+   }
+  },
+  "ter_receipt": {
+   "name": "Fee receipt (TER)",
+   "titles": [
+    "PAYMENT RECEIPT"
+   ],
+   "labels": {
+    "transaction_id": "Transaction ID",
+    "institution_name": "Name of the Institution",
+    "aicte_id": "AICTE Permanent ID",
+    "amount": "Amount Paid",
+    "payment_date": "Payment Date",
+    "status": "Payment Status"
+   },
+   "issuer": {
+    "register": "payment_ledger",
+    "name": "AICTE payment gateway ledger",
+    "key": "transaction_id",
+    "compare": [
+     "aicte_id",
+     "amount",
+     "payment_date"
+    ]
+   }
+  }
+ }
+}
